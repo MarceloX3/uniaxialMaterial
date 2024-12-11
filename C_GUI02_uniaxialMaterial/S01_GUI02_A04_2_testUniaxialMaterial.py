@@ -6,7 +6,7 @@ SCRIPT:         S01_GUI02_A04_testUniaxialMaterial.py
 COMENTARIOS:    Define material a testear en openseespy.
 """
 
-# %% TODO: [00] INTRODUCTION
+# %% [00] INTRODUCTION
 # Para determinar el nivel de esfuerzo para cierto nivel de deformación,
 # es necesario limpiar el modelo opensees, definir un material, e indicar que
 # se realizara un test al material. Esto se debe repetir diferentes veces,
@@ -14,7 +14,7 @@ COMENTARIOS:    Define material a testear en openseespy.
 # atencion a extension original del codigo.
 
 
-# %% TODO: [01] CODE
+# %% [01] CODE
 ops.wipe()
 
 # Select the correct MatTag
