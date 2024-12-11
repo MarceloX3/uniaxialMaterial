@@ -7,7 +7,7 @@ La interfaz gráfica de usuario (GUI) permite a los usuarios visualizar cómo ca
 ![Material Model](assets/02_Material_Model_1.gif)
 ## Regularization
 ![Regularization](assets/02_Regularization.gif)
-## Cyclic
+## Cyclic - Code - Video
 ![Cyclic](assets/03_Cyclic_2.gif)
 
 # INSTALACIÓN
