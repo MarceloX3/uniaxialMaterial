@@ -5,18 +5,18 @@ AUTOR:          Marcelo Ortiz Á.
 SCRIPT:         S01_GUI02_A03_Graphic.py
 COMENTARIOS:    Grafica plots.
 """
-# %% TODO: [00] INTRODUCTION
+# %% [00] INTRODUCTION
 # GUI en Jupyter Notebook ejecuta esta funcion para añadir curvas a graficas.
 
 
-# %% TODO: [01] LIBRARIES
+# %% [01] LIBRARIES
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-# %% TODO: [02] FUNCTIONS
+# %% [02] FUNCTIONS
 
-# %%% TODO: [02-00] PLOT STRAIN VS STRESS MONOTONIC
+# %%% [02-00] PLOT STRAIN VS STRESS MONOTONIC
 def plot_strain_stress(data_array_x, color_x, label_x, xlabel_x, ylabel_x, grid_x, ax_x=None):
     # If no axes object is provided, create a new figure with the specified size and resolution
     if ax_x is None:
@@ -197,9 +197,9 @@ def plot_index_strain_only(list_strain, color_x, label_x, grid_x, ax_x=None):
     ax_x.legend()
 
 
-# %% TODO: [03] TEST FUNCTIONS
+# %% [03] TEST FUNCTIONS
 
-# %%% TODO: [03-00] plot_strain_stress()
+# %%% [03-00] plot_strain_stress()
 # Run only if it is the main file.
 if __name__ == '__main__':
     import S01_GUI02_A02_fileText as TxT
@@ -269,7 +269,7 @@ if __name__ == '__main__':
     plt.savefig(URL_img)
 
 
-# %%% TODO: [03-01] plot_index_strain()
+# %%% [03-01] plot_index_strain()
 # Run only if it is the main file.
 if __name__ == '__main__':
     import S01_GUI02_A02_fileText as TxT
