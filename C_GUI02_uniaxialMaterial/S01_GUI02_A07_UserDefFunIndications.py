@@ -6,10 +6,10 @@ SCRIPT:         S01_GUI02_A07_UserDefFunIndications.py
 COMENTARIOS:    Define instructions to use a user defined function in the GUI.
 """
 
-# %% TODO: [00] INTRODUCTION
+# %% [00] INTRODUCTION
 # Create key for each user defined model with the parameters and units of the model.
 
-# %% TODO: [01] INSTRUCTIONS OF USER DEFINED FUNCTIONS
+# %% [01] INSTRUCTIONS OF USER DEFINED FUNCTIONS
 instructions = {
     'Saatcioglu(1992)': """Paper: STRENGTH AND DUCTILITY OF CONFINED CONCRETE
 Authors: Murat Saatcioglu and Salim R. Razvi
