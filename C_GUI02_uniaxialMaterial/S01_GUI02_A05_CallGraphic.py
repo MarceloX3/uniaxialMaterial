@@ -6,13 +6,13 @@ SCRIPT:         S01_GUI02_A05_CallGraphic.py
 COMENTARIOS:    Define material a testear en openseespy.
 """
 
-# %% TODO: [00] INTRODUCTION
+# %%  [00] INTRODUCTION
 # Para graficar diferentes curvas esfuerzo deformación en un mismo gráfico, es necesario repetir estas líneas de código
 # para cada curva. Por lo tanto, se ejecutarán estas líneas de código desde este script, en atención a extensión original
 # del código.
 
 
-# %% TODO: [01] CODE
+# %%  [01] CODE
 # Unified unit
 unit_factors_new = {
     'kgf/cm**2': {'kgf/cm**2': 1, 'tonf/m**2': 0.1, 'ksi': 70.3069579639159, 'psi': 0.070306957963916,
