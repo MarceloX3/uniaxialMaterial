@@ -2445,7 +2445,7 @@ display(interface_B)
 
 # %% [06] DEVELOPER
 # Developer view
-aux_view_developer = True
+aux_view_developer = False
 if aux_view_developer:
     # Layout programer
     programer_output = Textarea(value='', layout=widgets.Layout(width='1072px', height='380px'))  # 
