@@ -1,5 +1,5 @@
 # uniaxialMaterial
-La interfaz gráfica de usuario (GUI) permite a los usuarios visualizar cómo cada parámetro afecta la definición de un material, regularizar el hormigón y comparar los modelos de comportamiento de OpenSees con los modelos analíticos. Facilita el proceso de aprendizaje en la definición y manejo de materiales, proporcionando una comprensión holística de su comportamiento en tensión, compresión y carga cíclica. El código está inspirado en el script `test.py` desarrollado por A. Schellenberg, Ph.D., [Enlace test.py](https://github.com/fmckenna/OpenSees/blob/master/SRC/interpreter/test.py)
+La interfaz gráfica de usuario (GUI) permite a los usuarios visualizar cómo cada parámetro afecta la definición de un material, regularizar el hormigón y comparar los modelos de comportamiento de OpenSees con los modelos analíticos. Facilita el proceso de aprendizaje en la definición y manejo de materiales, proporcionando una comprensión holística de su comportamiento en tensión, compresión y ante carga cíclica. El código está inspirado en el script `test.py` desarrollado por A. Schellenberg, Ph.D., [Enlace test.py](https://github.com/fmckenna/OpenSees/blob/master/SRC/interpreter/test.py)
 
 ## Load Strain
 ![Load Strain](assets/01_Load_Strain.gif)
