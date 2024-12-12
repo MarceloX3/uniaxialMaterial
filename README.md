@@ -81,7 +81,7 @@ Un archivo `.bat` (batch) es un script ejecutable en sistemas Windows que permit
      start %ANACONDAPATH%\python.exe %ANACONDAPATH%\cwp.py %ANACONDAPATH% ^
 
      REM Abrir el archivo .ipynb especificado
-     start %ANACONDAPATH%\python.exe %ANACONDAPATH%\Scripts\jupyter-notebook-script.py %1
+     start %ANACONDAPATH%\python.exe %ANACONDAPATH%\Scripts\jupyter-notebook.exe %1
 
      exit
      ```
