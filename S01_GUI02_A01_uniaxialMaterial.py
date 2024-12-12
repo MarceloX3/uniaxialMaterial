@@ -134,7 +134,7 @@ def update_model_type_dropdown(change=None):
         model_type_dropdown.options = ['ConcreteCM', 'Concrete07']
         model_type_dropdown.value = 'ConcreteCM'
     elif material_type_dropdown.value == 'Steel':
-        model_type_dropdown.options = ['SteelMPF']
+        model_type_dropdown.options = ['SteelMPF','Steel02']
         model_type_dropdown.value = 'SteelMPF'
     elif material_type_dropdown.value == 'MinMax':
         model_type_dropdown.options = ['-']
@@ -213,6 +213,12 @@ def update_model_widgets(change=None):
         update_description(fyp_input, "fyp:")
         update_description(fyn_input, "fyn:")
         update_description(E0_input, "E0:")
+    
+    elif model_type == 'Steel02':
+        new_widgets = [Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input,
+                        a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input]
+        update_description(Fy_Steel02_input, "Fy:")
+        update_description(E0_Steel02_input, "E0:")
 
     elif model_type == 'Saatcioglu(1992)':
         new_widgets = [see_instruction_button, fco_input, fl_input, e01_input, rho_input, e085_input]
@@ -1186,15 +1192,23 @@ def model_arg():
         model_args = [model_type_dropdown.value, MatTag_input.value, fyp_input.value, fyn_input.value,
                         E0_input.value, bp_input.value, bn_input.value, R0_input.value, cR1_input.value,
                         cR2_input.value, a1_input.value, a2_input.value, a3_input.value, a4_input.value]
+    
+    elif model_type == 'Steel02':
+        model_args = [model_type_dropdown.value, MatTag_input.value, Fy_Steel02_input.value, E0_Steel02_input.value,
+                      b_Steel02_input.value, R0_Steel02_input.value, cR1_Steel02_input.value, cR2_Steel02_input.value,
+                      a1_Steel02_input.value, a2_Steel02_input.value, a3_Steel02_input.value, a4_Steel02_input.value,
+                      sigInit_Steel02_input.value]
 
     elif model_type == 'Saatcioglu(1992)':
         model_args = [model_type_dropdown.value, MatTag_input.value, fco_input.value, fl_input.value,
                         e01_input.value,
                         rho_input.value, e085_input.value]
+        
     elif model_type == 'Mander(1988)':
         model_args = [model_type_dropdown.value, MatTag_input.value, fco_input.value, CSR_input.value,
                         eco_input.value,
                         Ec_input.value]
+        
     elif model_type == 'Belarbi(1994)':
         model_args = [model_type_dropdown.value, MatTag_input.value, f_cr_input.value, 
                       eps_cr_input.value, Ecr_input.value]
@@ -1399,6 +1413,8 @@ def assign_values_to_model_args(model_args, unit_model, material_type) -> None:
     global eco_input
     global OtherTag_minmax_dropdown, minStrain_input, maxStrain_input, MatTag_minmax_input
     global observer_enabled
+    global Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input
+    global a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input
     
     # Assign the values of the file to the widgets
     unit_dropdown.value = unit_model
@@ -1455,6 +1471,18 @@ def assign_values_to_model_args(model_args, unit_model, material_type) -> None:
         a2_input.value = model_args[11]
         a3_input.value = model_args[12]
         a4_input.value = model_args[13]
+    elif model_args[0] == 'Steel02':
+        Fy_Steel02_input.value = model_args[2]
+        E0_Steel02_input.value = model_args[3]
+        b_Steel02_input.value = model_args[4]
+        R0_Steel02_input.value = model_args[5]
+        cR1_Steel02_input.value = model_args[6]
+        cR2_Steel02_input.value = model_args[7]
+        a1_Steel02_input.value = model_args[8]
+        a2_Steel02_input.value = model_args[9]
+        a3_Steel02_input.value = model_args[10]
+        a4_Steel02_input.value = model_args[11]
+        sigInit_Steel02_input.value = model_args[12]
     elif model_args[0] == 'Saatcioglu(1992)':
         fco_input.value = model_args[2]
         fl_input.value = model_args[3]
@@ -1932,6 +1960,20 @@ a1_input = Text(value='0.0', description="a1:", continuous_update=False, layout=
 a2_input = Text(value='1.0', description="a2:", continuous_update=False, layout=layout_var)
 a3_input = Text(value='0.0', description="a3:", continuous_update=False, layout=layout_var)
 a4_input = Text(value='1.0', description="a4:", continuous_update=False, layout=layout_var)
+# Steel02
+#uniaxialMaterial('Steel02', matTag, Fy, E0, b, *params, a1=a2*Fy/E0, a2=1.0, a3=a4*Fy/E0, a4=1.0, sigInit=0.0)
+# Inputs already defined: MatTag_input
+Fy_Steel02_input = Text(value='4200.0', description="Fy:", continuous_update=False, layout=layout_var)
+E0_Steel02_input = Text(value='2100000', description="E0:", continuous_update=False, layout=layout_var)
+b_Steel02_input = Text(value='0.02', description="b:", continuous_update=False, layout=layout_var)
+R0_Steel02_input = Text(value='20', description="R0:", continuous_update=False, layout=layout_var)
+cR1_Steel02_input = Text(value='0.925', description="cR1:", continuous_update=False, layout=layout_var)
+cR2_Steel02_input = Text(value='0.15', description="cR2:", continuous_update=False, layout=layout_var)
+a1_Steel02_input = Text(value='0.0', description="a1:", continuous_update=False, layout=layout_var)
+a2_Steel02_input = Text(value='1.0', description="a2:", continuous_update=False, layout=layout_var)
+a3_Steel02_input = Text(value='0.0', description="a3:", continuous_update=False, layout=layout_var)
+a4_Steel02_input = Text(value='1.0', description="a4:", continuous_update=False, layout=layout_var)
+sigInit_Steel02_input = Text(value='0.0', description="sigInit:", continuous_update=False, layout=layout_var)
 
 # Extra widgets for user defined materials
 # Saatcioglu(1992)
@@ -2137,7 +2179,9 @@ widgets_list = [delta_e, e_max_c, e_max_t,
     CSR_input, eco_input,
     fc_reg_input, ec_reg_input, Ec_reg_input, fr_reg_input, Gfc_cc_input, L_reg_input,
     minStrain_input, maxStrain_input,
-    f_cr_input, eps_cr_input, Ecr_input]
+    f_cr_input, eps_cr_input, Ecr_input,
+    Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input,
+    a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input]
 
 widgets_graphic_strain = [delta_e, e_max_c, 
                    e_max_t, e_max_c_1, e_max_c_2, e_max_c_3, e_max_c_4, e_max_c_5, 
@@ -2152,7 +2196,9 @@ widgets_graphic_material = [fpcc_input, epcc_input, Ec_input, rc_input, xcrn_inp
                             fco_input, fl_input, e01_input, rho_input, e085_input,
                             CSR_input, eco_input,
                             minStrain_input, maxStrain_input,
-                            f_cr_input, eps_cr_input, Ecr_input]
+                            f_cr_input, eps_cr_input, Ecr_input,
+                            Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input,
+                            a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input]
 
 widgets_regularization = [Gfc_cc_input, L_reg_input]
 
@@ -2342,7 +2388,7 @@ def update_otherTag_minmax_dropdown(change=None):
     selected_files = [cb.description for cb in files_checkboxes_3]
     
     # Only use the files that the material is defined using opensees functions
-    model_in_opensees = ['ConcreteCM', 'Concrete07', 'SteelMPF']
+    model_in_opensees = ['ConcreteCM', 'Concrete07', 'SteelMPF', 'Steel02']
     # the files are called: 'MatTag_2_ConcreteCM.txt', 'MatTag_3_Concrete07.txt', etc
     selected_files = [file for file in selected_files if file.split('_')[2].split('.')[0] in model_in_opensees]
     
