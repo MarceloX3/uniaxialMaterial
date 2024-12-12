@@ -1,5 +1,5 @@
 # uniaxialMaterial
-La interfaz gráfica de usuario (GUI) permite a los usuarios visualizar cómo cada parámetro afecta la definición de un material, regularizar el hormigón y comparar los modelos de comportamiento de OpenSees con los modelos analíticos. Facilita el proceso de aprendizaje en la definición y manejo de materiales, proporcionando una comprensión holística de su comportamiento en tensión, compresión y carga cíclica. El código está inspirado en el script `test.py` desarrollado por A. Schellenberg, Ph.D., [Enlace test.py](https://github.com/fmckenna/OpenSees/blob/master/SRC/interpreter/test.py)
+La interfaz gráfica de usuario (GUI) permite a los usuarios visualizar cómo cada parámetro afecta la definición de un material, regularizar el hormigón y comparar los modelos de comportamiento de OpenSees con los modelos analíticos. Facilita el proceso de aprendizaje en la definición y manejo de materiales, proporcionando una comprensión holística de su comportamiento en tensión, compresión y ante carga cíclica. El código está inspirado en el script `test.py` desarrollado por A. Schellenberg, Ph.D., [Enlace test.py](https://github.com/fmckenna/OpenSees/blob/master/SRC/interpreter/test.py)
 
 ## Load Strain
 ![Load Strain](assets/01_Load_Strain.gif)
@@ -27,21 +27,25 @@ git clone https://github.com/MarceloX3/uniaxialMaterial
 
 ## PARTE 2: Configuración del Entorno
 5. Abrir Anaconda Prompt
-6. Crear entorno virtual
-```bash
-conda create -n env_uniaxialMaterial python=3.11
-```
-7. Activar entorno
-```bash
-conda activate env_uniaxialMaterial
-```
-8. Navegar a carpeta del proyecto
+6. Navegar a carpeta del proyecto
 ```bash
 cd ruta/a/tu/proyecto
 ```
-9. Instalar dependencias
+7. Crear entorno virtual conda
 ```bash
-conda install --file requirements.txt
+conda create --name env_uniaxialMaterial --file environment_conda.txt
+```
+8. Activar entorno
+```bash
+conda activate env_uniaxialMaterial
+```
+9. Instalar dependencias pip
+```bash
+pip install -r requirements_pip.txt
+```
+10. Instalar dependencias conda
+```bash
+pip install -r requirements_pip.txt
 ```
 
 ## PARTE 3: Ejecución
@@ -81,7 +85,7 @@ Un archivo `.bat` (batch) es un script ejecutable en sistemas Windows que permit
      start %ANACONDAPATH%\python.exe %ANACONDAPATH%\cwp.py %ANACONDAPATH% ^
 
      REM Abrir el archivo .ipynb especificado
-     start %ANACONDAPATH%\python.exe %ANACONDAPATH%\Scripts\jupyter-notebook-script.py %1
+     start %ANACONDAPATH%\python.exe %ANACONDAPATH%\Scripts\jupyter-notebook.exe %1
 
      exit
      ```
@@ -91,3 +95,10 @@ Un archivo `.bat` (batch) es un script ejecutable en sistemas Windows que permit
    - Haz clic derecho sobre el archivo `S01_GUI02_uniaxialMaterial.ipynb` y selecciona "Propiedades".
    - En "Abrir con", selecciona el archivo `.bat` creado.
    - Esto permitirá abrir el entorno y ejecutar el archivo automáticamente al hacer doble clic.
+   - 
+4. **Crear un acceso directo y personalizarlo (opcional):**
+   - Crea un acceso directo al archivo `S01_GUI02_uniaxialMaterial.ipynb`.
+   - Mueve el acceso directo a un lugar conveniente.
+   - Personaliza el icono haciendo clic derecho en el acceso directo, seleccionando "Propiedades" > "Cambiar icono" y eligiendo un archivo `.ico` característico.
+
+Este método proporciona una forma práctica y rápida de iniciar el proyecto sin necesidad de abrir manualmente el entorno o Jupyter Notebook.
