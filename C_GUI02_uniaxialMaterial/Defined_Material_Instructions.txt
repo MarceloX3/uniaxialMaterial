@@ -2,23 +2,23 @@
 
 [Instructions to add a new material in the GUI]
 + Script: S01_GUI02_A01_uniaxialMaterial.py
-    * [OK] Update the function update_model_type_dropdown()
-    * [OK] Update the code apart `%%% [04-01] Text - IntText`, add the new widgets
-    * [OK] Update the function `def update_model_widgets(`
+    * [-] Update the function `def update_model_type_dropdown(`
+    * [-] Update the code apart `%%% [04-01] Text - IntText`, add the new widgets
+    * [-] Update the function `def update_model_widgets(`
     * U.D.M.[] If you are creating a User Defined Material, update the function see_instruction()
-    * [OK] Update the function `def model_arg(`
-    * [OK] Update the function `def assign_values_to_model_args(`
-    * [OK] Update the code apart `MATH IN WIDGETS & DYNAMIC GRAPHICS`, add the new widgets to the lists
-    * [OK] Update list `model_in_opensees`
+    * [-] Update the function `def model_arg(` <====Ver para definir S01_GUI02_A02_2_fileText.py====>
+    * [-] Update the function `def assign_values_to_model_args(`
+    * [-] Update the code apart `MATH IN WIDGETS & DYNAMIC GRAPHICS`, add the new widgets to the lists
+    * [-] Update list `model_in_opensees`
 
 + Script: S01_GUI02_A02_2_fileText.py
-    * [OK] Update `def read_file_to_dict(`
-    * [OK] Update `def file_txt(`
-    * [OK] Update `def data_plot(`; see `models_opss_py` list.
+    * [-] Update `def read_file_to_dict(`
+    * [-] Update `def file_txt(`
+    * [-] Update `def data_plot(`; see `models_opss_py` list.
     
     
 + S01_GUI02_A04_2_testUniaxialMaterial.py
-    * [OK] Update if is a OpenSees material.
+    * [-] Update if is a OpenSees material.
 
 
 + S01_GUI02_A06_UserDefinedFunctions.py
