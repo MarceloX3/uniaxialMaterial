@@ -91,3 +91,10 @@ Un archivo `.bat` (batch) es un script ejecutable en sistemas Windows que permit
    - Haz clic derecho sobre el archivo `S01_GUI02_uniaxialMaterial.ipynb` y selecciona "Propiedades".
    - En "Abrir con", selecciona el archivo `.bat` creado.
    - Esto permitirá abrir el entorno y ejecutar el archivo automáticamente al hacer doble clic.
+   - 
+4. **Crear un acceso directo y personalizarlo (opcional):**
+   - Crea un acceso directo al archivo `S01_GUI02_uniaxialMaterial.ipynb`.
+   - Mueve el acceso directo a un lugar conveniente.
+   - Personaliza el icono haciendo clic derecho en el acceso directo, seleccionando "Propiedades" > "Cambiar icono" y eligiendo un archivo `.ico` característico.
+
+Este método proporciona una forma práctica y rápida de iniciar el proyecto sin necesidad de abrir manualmente el entorno o Jupyter Notebook.
