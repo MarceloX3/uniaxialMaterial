@@ -27,21 +27,21 @@ git clone https://github.com/MarceloX3/uniaxialMaterial
 
 ## PARTE 2: Configuración del Entorno
 5. Abrir Anaconda Prompt
-6. Crear entorno virtual
-```bash
-conda create -n env_uniaxialMaterial python=3.11
-```
-7. Activar entorno
-```bash
-conda activate env_uniaxialMaterial
-```
-8. Navegar a carpeta del proyecto
+6. Navegar a carpeta del proyecto
 ```bash
 cd ruta/a/tu/proyecto
 ```
-9. Instalar dependencias
+7. Crear entorno virtual conda
 ```bash
-conda install --file requirements.txt
+conda create --name env_uniaxialMaterial --file environment_conda.txt
+```
+8. Activar entorno
+```bash
+conda activate env_uniaxialMaterial
+```
+9. Instalar dependencias pip
+```bash
+pip install -r requirements_pip.txt
 ```
 
 ## PARTE 3: Ejecución
