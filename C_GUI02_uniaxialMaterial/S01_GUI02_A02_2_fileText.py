@@ -60,6 +60,13 @@ def read_file_to_dict(file_path):
         "'Belarbi(1994)'": "$Belarbi(1994)$",
         "'Steel02'": "$Steel02$",
         "'Steel01'": "$Steel01$",
+        "'Steel4'": "$Steel4$",
+        "'-asym'": "$-asym$",
+        "'-kin'": "$-kin$",
+        "'-iso'": "$-iso$",
+        "'-ult'": "$-ult$",
+        "'-init'": "$-init$",
+        "'-mem'": "$-mem$",
     }
     for key, value in replacements.items():
         file_content = file_content.replace(key, value)
@@ -291,7 +298,9 @@ a2_{mat_tag}     = {a2}
 a3_{mat_tag}     = {a3}
 a4_{mat_tag}     = {a4}
 
-ops.uniaxialMaterial('SteelMPF', matTag_{mat_tag}, fyp_{mat_tag}, fyn_{mat_tag}, E0_{mat_tag}, bp_{mat_tag}, bn_{mat_tag}, R0_{mat_tag}, cR1_{mat_tag}, cR2_{mat_tag}, a1_{mat_tag}, a2_{mat_tag}, a3_{mat_tag}, a4_{mat_tag})
+params = [R0_{mat_tag}, cR1_{mat_tag}, cR2_{mat_tag}]
+
+ops.uniaxialMaterial('SteelMPF', matTag_{mat_tag}, fyp_{mat_tag}, fyn_{mat_tag}, E0_{mat_tag}, bp_{mat_tag}, bn_{mat_tag}, *params, a1_{mat_tag}, a2_{mat_tag}, a3_{mat_tag}, a4_{mat_tag})
 """
         }
     
@@ -341,7 +350,9 @@ a3_{mat_tag}     = {a3}
 a4_{mat_tag}     = {a4}
 sigInit_{mat_tag} = {sigInit}
 
-ops.uniaxialMaterial('Steel02', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, b_{mat_tag}, R0_{mat_tag}, cR1_{mat_tag}, cR2_{mat_tag}, a1_{mat_tag}, a2_{mat_tag}, a3_{mat_tag}, a4_{mat_tag}, sigInit_{mat_tag})
+params = [R0_{mat_tag}, cR1_{mat_tag}, cR2_{mat_tag}]
+
+ops.uniaxialMaterial('Steel02', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, b_{mat_tag}, *params, a1_{mat_tag}, a2_{mat_tag}, a3_{mat_tag}, a4_{mat_tag}, sigInit_{mat_tag})
 """
         }
     
@@ -382,6 +393,88 @@ a3_{mat_tag}     = {a3}
 a4_{mat_tag}     = {a4}
 
 ops.uniaxialMaterial('Steel01', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, b_{mat_tag}, a1_{mat_tag}, a2_{mat_tag}, a3_{mat_tag}, a4_{mat_tag})
+"""
+        }
+    
+    elif model == 'Steel4':        
+        model, mat_tag, Fy, E0, b_k, R0, r1, r2, b_kc, R0c, r1c, r2c, b_i, rho_i, b_I, R_i, I_yp, b_ic, rho_ic, b_Ic, R_ic, f_u, R_u, f_uc, R_uc, sig_init, cycNum = model_args_x
+        mat_tag, Fy, E0, b_k, R0, r1, r2, b_kc, R0c, r1c, r2c, b_i, rho_i, b_I, R_i, I_yp, b_ic, rho_ic, b_Ic, R_ic, f_u, R_u, f_uc, R_uc, sig_init, cycNum = int(
+            mat_tag), float(Fy), float(E0), float(b_k), float(R0), float(r1), float(r2), float(b_kc), float(R0c), float(r1c), float(r2c), float(b_i), float(rho_i), 
+        float(b_I), float(R_i), float(I_yp), float(b_ic), float(rho_ic), float(b_Ic), float(R_ic), float(f_u), float(R_u), float(f_uc), float(R_uc), float(sig_init), 
+        int(cycNum)
+        
+        # If there is a MinMax material, it's necessary change the mat_tag
+        if len(min_max_args_x) != 0:
+            OtherTag_minmax = min_max_args_x[2]
+            OtherTag_minmax = int(OtherTag_minmax)
+            mat_tag = OtherTag_minmax
+            
+        material = {
+            "model": "-Steel4",
+            "unit": unit_x,
+            "material": {
+                "matTag": mat_tag,
+                "Fy": Fy,
+                "E0": E0,
+                "b_k": b_k,
+                "R0": R0,
+                "r1": r1,
+                "r2": r2,
+                "b_kc": b_kc,
+                "R0c": R0c,
+                "r1c": r1c,
+                "r2c": r2c,
+                "b_i": b_i,
+                "rho_i": rho_i,
+                "b_I": b_I,
+                "R_i": R_i,
+                "I_yp": I_yp,
+                "b_ic": b_ic,
+                "rho_ic": rho_ic,
+                "b_Ic": b_Ic,
+                "R_ic": R_ic,
+                "f_u": f_u,
+                "R_u": R_u,
+                "f_uc": f_uc,
+                "R_uc": R_uc,
+                "sig_init": sig_init,
+                "cycNum": cycNum
+            },
+            "code": f"""# import openseespy.opensees as ops
+
+# {unit_x} =  #  complete this field.
+
+matTag_{mat_tag} = {mat_tag}
+Fy_{mat_tag}     = {Fy} #  * {unit_x}
+E0_{mat_tag}     = {E0} #  * {unit_x}
+b_k_{mat_tag}    = {b_k}
+R0_{mat_tag}     = {R0}
+r1_{mat_tag}     = {r1}
+r2_{mat_tag}     = {r2}
+b_kc_{mat_tag}   = {b_kc}
+R0c_{mat_tag}    = {R0c}
+r1c_{mat_tag}    = {r1c}
+r2c_{mat_tag}    = {r2c}
+b_i_{mat_tag}    = {b_i}
+rho_i_{mat_tag}  = {rho_i}
+b_I_{mat_tag}    = {b_I}
+R_i_{mat_tag}    = {R_i}
+I_yp_{mat_tag}   = {I_yp}
+b_ic_{mat_tag}   = {b_ic}
+rho_ic_{mat_tag} = {rho_ic}
+b_Ic_{mat_tag}   = {b_Ic}
+R_ic_{mat_tag}   = {R_ic}
+f_u_{mat_tag}    = {f_u} #  * {unit_x}
+R_u_{mat_tag}    = {R_u}
+f_uc_{mat_tag}   = {f_uc} #  * {unit_x}
+R_uc_{mat_tag}   = {R_uc}
+sig_init_{mat_tag} = {sig_init}
+cycNum_{mat_tag} = {cycNum}
+
+params = [R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}]
+
+ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-kin', b_k_{mat_tag}, *params, b_kc_{mat_tag}, R0c_{mat_tag}, r1c_{mat_tag}, r2c_{mat_tag}, '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, b_ic_{mat_tag}, rho_ic_{mat_tag}, b_Ic_{mat_tag}, R_ic_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, f_uc_{mat_tag}, R_uc_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+
 """
         }
 
@@ -686,10 +779,11 @@ def strain_load(load_args_x):
         
 # Calculate stress for graphic
 def data_plot(unit_x, model_args_x, load_args_x, min_max_args_x = []):
+
     # Extract the arguments
     load_type, cyclic_type = load_args_x[:2]
     # Identify opensees models already implemented in the script
-    models_opss_py = ['ConcreteCM', 'Concrete07', 'SteelMPF', 'Steel02', 'Steel01']
+    models_opss_py = ['ConcreteCM', 'Concrete07', 'SteelMPF', 'Steel02', 'Steel01', 'Steel4']
 
     if load_type == 'monotonic':
         
@@ -966,5 +1060,14 @@ if __name__ == '__main__':
         min_max_args = ['MinMax', 10, 7, '-0.01593', '1.0e16']
         file_txt(url_args, unit, model_args, load_args, ID_cyclic_strain, min_max_args_x = min_max_args)
         print("Archivo creado con éxito.")
+    
+    # Example 7:
+    run_example_7 = False
+    if run_example_7:
+        unit = 'kgf/cm**2'
+        model_args = ['Steel4', 1, '4200.0', '2100000', '0.05', '20', '0.9', '0.15', '0.05', '20', '0.90', '0.15', '0.2', '0.2', '0.1', '20', '2.5', '0.2', '0.2', '0.1', '20', '6300.0', '20', '6300.0', '20', '0.0', '0']
+        load_args = ['monotonic', '-', '0.0001', '-0.008', '0']
+        dictionary = data_plot(unit, model_args, load_args)
+        print(dictionary)
         
         
