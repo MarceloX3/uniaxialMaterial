@@ -134,7 +134,7 @@ def update_model_type_dropdown(change=None):
         model_type_dropdown.options = ['ConcreteCM', 'Concrete07']
         model_type_dropdown.value = 'ConcreteCM'
     elif material_type_dropdown.value == 'Steel':
-        model_type_dropdown.options = ['Steel01', 'Steel02', 'SteelMPF']
+        model_type_dropdown.options = ['Steel01', 'Steel02', 'Steel4', 'SteelMPF']
         model_type_dropdown.value = 'SteelMPF'
     elif material_type_dropdown.value == 'MinMax':
         model_type_dropdown.options = ['-']
@@ -225,6 +225,18 @@ def update_model_widgets(change=None):
                        a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input]
         update_description(Fy_Steel01_input, "Fy:")
         update_description(E0_Steel01_input, "E0:")
+    
+    elif model_type == 'Steel4':
+        new_widgets = [Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+                       b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input,
+                       b_i_Steel4_input, rho_i_Steel4_input, b_I_Steel4_input, R_i_Steel4_input,
+                       I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input, R_ic_Steel4_input,
+                       f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input,
+                       sig_init_Steel4_input, cycNum_Steel4_input]
+        update_description(Fy_Steel4_input, "Fy:")
+        update_description(E0_Steel4_input, "E0:")
+        update_description(f_u_Steel4_input, "fu:")
+        update_description(f_uc_Steel4_input, "fuc:")
 
     elif model_type == 'Saatcioglu(1992)':
         new_widgets = [see_instruction_button, fco_input, fl_input, e01_input, rho_input, e085_input]
@@ -1209,6 +1221,15 @@ def model_arg():
         model_args = [model_type_dropdown.value, MatTag_input.value, Fy_Steel01_input.value, E0_Steel01_input.value,
                       b_Steel01_input.value, a1_Steel01_input.value, a2_Steel01_input.value, a3_Steel01_input.value,
                         a4_Steel01_input.value]
+    
+    elif model_type == 'Steel4':
+        model_args = [model_type_dropdown.value, MatTag_input.value, Fy_Steel4_input.value, E0_Steel4_input.value,
+                      b_k_Steel4_input.value, R0_Steel4_input.value, r1_Steel4_input.value, r2_Steel4_input.value,
+                      b_kc_Steel4_input.value, R0c_Steel4_input.value, r1c_Steel4_input.value, r2c_Steel4_input.value,
+                      b_i_Steel4_input.value, rho_i_Steel4_input.value, b_I_Steel4_input.value, R_i_Steel4_input.value,
+                      I_yp_Steel4_input.value, b_ic_Steel4_input.value, rho_ic_Steel4_input.value, b_Ic_Steel4_input.value,
+                      R_ic_Steel4_input.value, f_u_Steel4_input.value, R_u_Steel4_input.value, f_uc_Steel4_input.value, 
+                      R_uc_Steel4_input.value, sig_init_Steel4_input.value, cycNum_Steel4_input.value]
 
     elif model_type == 'Saatcioglu(1992)':
         model_args = [model_type_dropdown.value, MatTag_input.value, fco_input.value, fl_input.value,
@@ -1288,7 +1309,7 @@ def create_material_model_test_file(selected_file_in_strain_dropdown, aux_checkb
         # is on going definition, I'm going only to create de dictionary with that data. 
         # Because I don't want to write a txt file an read it.
         dictionary = TxT.data_plot(unit, model_args, load_args)  # dictionary['DataPlot']
-
+        
     return dictionary
     
 
@@ -1427,6 +1448,11 @@ def assign_values_to_model_args(model_args, unit_model, material_type) -> None:
     global Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input
     global a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input
     global Fy_Steel01_input, E0_Steel01_input, b_Steel01_input, a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input
+    global Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input
+    global b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input, b_i_Steel4_input, rho_i_Steel4_input
+    global b_I_Steel4_input, R_i_Steel4_input, I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input
+    global R_ic_Steel4_input, f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input, sig_init_Steel4_input
+    global cycNum_Steel4_input
     
     # Assign the values of the file to the widgets
     unit_dropdown.value = unit_model
@@ -1503,6 +1529,32 @@ def assign_values_to_model_args(model_args, unit_model, material_type) -> None:
         a2_Steel01_input.value = model_args[6]
         a3_Steel01_input.value = model_args[7]
         a4_Steel01_input.value = model_args[8]
+    elif model_args[0] == 'Steel4':
+        Fy_Steel4_input.value = model_args[2]
+        E0_Steel4_input.value = model_args[3]
+        b_k_Steel4_input.value = model_args[4]
+        R0_Steel4_input.value = model_args[5]
+        r1_Steel4_input.value = model_args[6]
+        r2_Steel4_input.value = model_args[7]
+        b_kc_Steel4_input.value = model_args[8]
+        R0c_Steel4_input.value = model_args[9]
+        r1c_Steel4_input.value = model_args[10]
+        r2c_Steel4_input.value = model_args[11]
+        b_i_Steel4_input.value = model_args[12]
+        rho_i_Steel4_input.value = model_args[13]
+        b_I_Steel4_input.value = model_args[14]
+        R_i_Steel4_input.value = model_args[15]
+        I_yp_Steel4_input.value = model_args[16]
+        b_ic_Steel4_input.value = model_args[17]
+        rho_ic_Steel4_input.value = model_args[18]
+        b_Ic_Steel4_input.value = model_args[19]
+        R_ic_Steel4_input.value = model_args[20]
+        f_u_Steel4_input.value = model_args[21]
+        R_u_Steel4_input.value = model_args[22]
+        f_uc_Steel4_input.value = model_args[23]
+        R_uc_Steel4_input.value = model_args[24]
+        sig_init_Steel4_input.value = model_args[25]
+        cycNum_Steel4_input.value = model_args[26]
     elif model_args[0] == 'Saatcioglu(1992)':
         fco_input.value = model_args[2]
         fl_input.value = model_args[3]
@@ -2004,6 +2056,34 @@ a1_Steel01_input = Text(value='0.0', description="a1:", continuous_update=False,
 a2_Steel01_input = Text(value='1.0', description="a2:", continuous_update=False, layout=layout_var)
 a3_Steel01_input = Text(value='0.0', description="a3:", continuous_update=False, layout=layout_var)
 a4_Steel01_input = Text(value='1.0', description="a4:", continuous_update=False, layout=layout_var)
+# Steel4
+# uniaxialMaterial('Steel4', matTag, Fy, E0, '-asym', '-kin', b_k, *params, b_kc, R_0c, r_1c, r_2c, '-iso', b_i, rho_i, b_l, R_i, l_yp, b_ic, rho_ic, b_lc, R_ic, '-ult', f_u, R_u, f_uc, R_uc, '-init', sig_init, '-mem', cycNum)
+# Inputs already defined: MatTag_input
+Fy_Steel4_input = Text(value='4200.0', description="Fy:", continuous_update=False, layout=layout_var)
+E0_Steel4_input = Text(value='2100000', description="E0:", continuous_update=False, layout=layout_var)
+b_k_Steel4_input = Text(value='0.05', description="b_k:", continuous_update=False, layout=layout_var)
+R0_Steel4_input = Text(value='20', description="R0:", continuous_update=False, layout=layout_var)
+r1_Steel4_input = Text(value='0.9', description="r1:", continuous_update=False, layout=layout_var)
+r2_Steel4_input = Text(value='0.15', description="r2:", continuous_update=False, layout=layout_var)
+b_kc_Steel4_input = Text(value='0.05', description="b_kc:", continuous_update=False, layout=layout_var)
+R0c_Steel4_input = Text(value='20', description="R0c:", continuous_update=False, layout=layout_var)
+r1c_Steel4_input = Text(value='0.90', description="r1c:", continuous_update=False, layout=layout_var)
+r2c_Steel4_input = Text(value='0.15', description="r2c:", continuous_update=False, layout=layout_var)
+b_i_Steel4_input = Text(value='0.2', description="b_i:", continuous_update=False, layout=layout_var)
+rho_i_Steel4_input = Text(value='0.2', description="rho_i:", continuous_update=False, layout=layout_var)
+b_I_Steel4_input = Text(value='0.1', description="b_I:", continuous_update=False, layout=layout_var)
+R_i_Steel4_input = Text(value='20', description="R_i:", continuous_update=False, layout=layout_var)
+I_yp_Steel4_input = Text(value='2.5', description="I_yp:", continuous_update=False, layout=layout_var)
+b_ic_Steel4_input = Text(value='0.2', description="b_ic:", continuous_update=False, layout=layout_var)
+rho_ic_Steel4_input = Text(value='0.2', description="rho_ic:", continuous_update=False, layout=layout_var)
+b_Ic_Steel4_input = Text(value='0.1', description="b_Ic:", continuous_update=False, layout=layout_var)
+R_ic_Steel4_input = Text(value='20', description="R_ic:", continuous_update=False, layout=layout_var)
+f_u_Steel4_input = Text(value='6300.0', description="f_u:", continuous_update=False, layout=layout_var)
+R_u_Steel4_input = Text(value='20', description="R_u:", continuous_update=False, layout=layout_var)
+f_uc_Steel4_input = Text(value='6300.0', description="f_uc:", continuous_update=False, layout=layout_var)
+R_uc_Steel4_input = Text(value='20', description="R_uc:", continuous_update=False, layout=layout_var)
+sig_init_Steel4_input = Text(value='0.0', description="sig_init:", continuous_update=False, layout=layout_var)
+cycNum_Steel4_input = Text(value='0', description="cycNum:", continuous_update=False, layout=layout_var)
 
 # Extra widgets for user defined materials
 # Saatcioglu(1992)
@@ -2212,7 +2292,12 @@ widgets_list = [delta_e, e_max_c, e_max_t,
     f_cr_input, eps_cr_input, Ecr_input,
     Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input,
     a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input,
-    Fy_Steel01_input, E0_Steel01_input, b_Steel01_input, a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input]
+    Fy_Steel01_input, E0_Steel01_input, b_Steel01_input, a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input,
+    Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+    b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input, b_i_Steel4_input, rho_i_Steel4_input,
+    b_I_Steel4_input, R_i_Steel4_input, I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input,
+    R_ic_Steel4_input, f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input, sig_init_Steel4_input,
+    cycNum_Steel4_input]
 
 widgets_graphic_strain = [delta_e, e_max_c, 
                    e_max_t, e_max_c_1, e_max_c_2, e_max_c_3, e_max_c_4, e_max_c_5, 
@@ -2230,7 +2315,12 @@ widgets_graphic_material = [fpcc_input, epcc_input, Ec_input, rc_input, xcrn_inp
                             f_cr_input, eps_cr_input, Ecr_input,
                             Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input,
                             a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input,
-                            Fy_Steel01_input, E0_Steel01_input, b_Steel01_input, a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input]
+                            Fy_Steel01_input, E0_Steel01_input, b_Steel01_input, a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input,
+                            Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+                            b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input, b_i_Steel4_input, rho_i_Steel4_input,
+                            b_I_Steel4_input, R_i_Steel4_input, I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input,
+                            R_ic_Steel4_input, f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input, sig_init_Steel4_input,
+                            cycNum_Steel4_input]
 
 widgets_regularization = [Gfc_cc_input, L_reg_input]
 
@@ -2420,7 +2510,7 @@ def update_otherTag_minmax_dropdown(change=None):
     selected_files = [cb.description for cb in files_checkboxes_3]
     
     # Only use the files that the material is defined using opensees functions
-    model_in_opensees = ['ConcreteCM', 'Concrete07', 'SteelMPF', 'Steel02', 'Steel01']
+    model_in_opensees = ['ConcreteCM', 'Concrete07', 'SteelMPF', 'Steel02', 'Steel01', 'Steel4']
     # the files are called: 'MatTag_2_ConcreteCM.txt', 'MatTag_3_Concrete07.txt', etc
     selected_files = [file for file in selected_files if file.split('_')[2].split('.')[0] in model_in_opensees]
     
