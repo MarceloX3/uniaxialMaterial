@@ -605,53 +605,48 @@ def data_plot(unit_x, model_args_x, load_args_x, min_max_args_x = []):
         strains_C, strains_T = strain_load(load_args_x)
         stresses_C, stresses_T = [], []
 
-        # Calculate stresses for compression
-        for i in range(len(strains_C)):
-            model = model_args_x[0]
-            # If model is defined in openseespy.
-            if model in models_opss_py:
-                # Define test.
-                exec(open('C_GUI02_uniaxialMaterial/S01_GUI02_A04_2_testUniaxialMaterial.py', encoding='utf8').read())
-                
+        model = model_args_x[0]
+        
+        # If model is defined in openseespy.
+        if model in models_opss_py:
+            # Define test.
+            exec(open('C_GUI02_uniaxialMaterial/S01_GUI02_A04_2_testUniaxialMaterial.py', encoding='utf8').read())
+            for i in range(len(strains_C)):
                 # Calculate strength
-                if i == 0:
-                    ops.setStrain(strains_C[i])
-                else:
-                    for k in range(i + 1):
-                        ops.setStrain(strains_C[k])
+                ops.setStrain(strains_C[i])
                 stresses_C.append(ops.getStress())
-            # If model is defined by user.
-            elif model == 'Saatcioglu(1992)':
-                ec = strains_C[i]
-                # Calculate strength
-                fc = udf.Saatcioglu_1992(unit_x, abs(ec), model_args_x[2:])
-                stresses_C.append(-fc)
-            elif model == 'Mander(1988)':
-                ec = strains_C[i]
-                # Calculate strength
-                fc = udf.Mander_1988(unit_x, abs(ec), model_args_x[2:])
-                stresses_C.append(-fc)
+        else:
+            # Calculate stresses for compression
+            for i in range(len(strains_C)):
+                # If model is defined by user.
+                if model == 'Saatcioglu(1992)':
+                    ec = strains_C[i]
+                    # Calculate strength
+                    fc = udf.Saatcioglu_1992(unit_x, abs(ec), model_args_x[2:])
+                    stresses_C.append(-fc)
+                elif model == 'Mander(1988)':
+                    ec = strains_C[i]
+                    # Calculate strength
+                    fc = udf.Mander_1988(unit_x, abs(ec), model_args_x[2:])
+                    stresses_C.append(-fc)
 
         # Calculate stresses for tension
-        for i in range(len(strains_T)):
-            model = model_args_x[0]
-            # If model is defined in openseespy.
-            if model in models_opss_py:
-                # Define test.
-                exec(open('C_GUI02_uniaxialMaterial/S01_GUI02_A04_2_testUniaxialMaterial.py', encoding='utf8').read())
+        # If model is defined in openseespy.
+        if model in models_opss_py:
+            # Define test.
+            exec(open('C_GUI02_uniaxialMaterial/S01_GUI02_A04_2_testUniaxialMaterial.py', encoding='utf8').read())
+            for i in range(len(strains_T)):
                 # Calculate strength
-                if i == 0:
-                    ops.setStrain(strains_T[i])
-                else:
-                    for k in range(i + 1):
-                        ops.setStrain(strains_T[k])
+                ops.setStrain(strains_T[i])
                 stresses_T.append(ops.getStress())
-            # If model is defined by user.
-            elif model == 'Belarbi(1994)':
-                ec = strains_T[i]
-                # Calculate strength
-                ft = udf.Belarbi_1994(unit_x, abs(ec), model_args_x[2:])
-                stresses_T.append(ft)
+        else:
+            for i in range(len(strains_T)):
+                # If model is defined by user.
+                if model == 'Belarbi(1994)':
+                    ec = strains_T[i]
+                    # Calculate strength
+                    ft = udf.Belarbi_1994(unit_x, abs(ec), model_args_x[2:])
+                    stresses_T.append(ft)
 
         # Convert the results to numpy arrays
         strains_C, stresses_C = np.array(strains_C), np.array(stresses_C)
@@ -864,7 +859,7 @@ if __name__ == '__main__':
     # Example 5:
     run_example_5 = False
     if run_example_5:
-        url_x = 'C_GUI02_uniaxialMaterial/C_GUI02_uniaxialMaterial\monotonic\MatTag_4_5_IdStrainLoad_Default.txt'
+        url_x = 'C_GUI02_uniaxialMaterial/C_GUI02_uniaxialMaterial/monotonic/MatTag_4_5_IdStrainLoad_Default.txt'
         data_dict = read_file_to_dict(url_x)
         print("data_dict['load_type'] = ", data_dict['load_type'])
         
