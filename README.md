@@ -43,10 +43,6 @@ conda activate env_uniaxialMaterial
 ```bash
 pip install -r requirements_pip.txt
 ```
-10. Instalar dependencias conda
-```bash
-pip install -r requirements_pip.txt
-```
 
 ## PARTE 3: Ejecución
 
