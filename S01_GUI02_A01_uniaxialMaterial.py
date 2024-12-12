@@ -2444,41 +2444,34 @@ interface_B = VBox([interface_A, text3])
 display(interface_B)
 
 # %% [06] DEVELOPER
-# Actual options to run:
-# if run_from_directory_C_GUI02_uniaxialMaterial:
-#     print('Script located in the directory "C_GUI02_uniaxialMaterial"')
-# if run_from_directory_with_ipynb:
-#     print('Script located in the directory with the .ipynb file')
-# if test_uniaxialMaterial_using_truss_element:
-#     print('Test uniaxialMaterial using truss element')
-# if test_uniaxialMaterial_using_test_python:
-#     print('Test uniaxialMaterial using test_python (Version 1)')
-# if test_uniaxialMaterial_using_test_python_3:
-#     print('Test uniaxialMaterial using test_python (Version 3). This version doesnt work with cyclic load')
+# Developer view
+aux_view_developer = True
+if aux_view_developer:
+    # Layout programer
+    programer_output = Textarea(value='', layout=widgets.Layout(width='1072px', height='380px'))  # 
+    display(programer_output)
 
-# Layout programer
-# programer_output = Textarea(value='', layout=widgets.Layout(width='1072px', height='380px'))  # 
-# display(programer_output)
-
-# Function to display in GUI variable in certain line of code
-# def GUI_info(Text_in_string, line_of_code,  variable):
-#     """
-#     Function to display in GUI certain line of code
-#     :param Text_in_string: Variable in string
-#     :param line_of_code: Line of code
-#     :param variable: Variable to display
-#     :return: None
+    # Function to display in GUI variable in certain line of code
+    def GUI_info(Text_in_string, line_of_code,  variable):
+        """
+        Function to display in GUI certain line of code
+        :param Text_in_string: Variable in string
+        :param line_of_code: Line of code
+        :param variable: Variable to display
+        :return: None
+        
+        Calling using:
+        current_line = inspect.currentframe().f_lineno
+        GUI_info('load_args = ', current_line, load_args)
+        """
+        template_message = f"""
+    Line of Code: {line_of_code}
+    {Text_in_string}
+    """
+        template_close_message = f"""
+    --------------------------------------------
+    """
+        programer_output.value = programer_output.value + template_message + str(variable) + template_close_message
     
-#     Calling using:
-#     current_line = inspect.currentframe().f_lineno
-#     GUI_info('load_args = ', current_line, load_args)
-#     """
-#     template_message = f"""
-# Line of Code: {line_of_code}
-# {Text_in_string}
-# """
-#     template_close_message = f"""
-# --------------------------------------------
-# """
-#     programer_output.value = programer_output.value + template_message + str(variable) + template_close_message
+    programer_output.value = programer_output.value + 'Version: 1'
 
