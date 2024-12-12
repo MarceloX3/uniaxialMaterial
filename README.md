@@ -33,13 +33,17 @@ cd ruta/a/tu/proyecto
 ```
 7. Crear entorno virtual conda
 ```bash
-conda create --name env_uniaxialMaterial --file environment_conda.txt
+conda create --name env_uniaxialMaterial
 ```
 8. Activar entorno
 ```bash
 conda activate env_uniaxialMaterial
 ```
 9. Instalar dependencias pip
+```bash
+pip install -r requirements_pip.txt
+```
+10. Instalar dependencias conda
 ```bash
 pip install -r requirements_pip.txt
 ```
