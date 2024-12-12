@@ -45,6 +45,12 @@ elif model == 'SteelMPF':
         bp), float(bn), float(R0), float(cR1), float(cR2), float(a1), float(a2), float(a3), float(a4)
     ops.uniaxialMaterial('SteelMPF', MatTag, fyp, fyn, E0, bp, bn, R0, cR1, cR2, a1, a2, a3, a4)
 
+elif model == 'Steel02':
+    Fy, E0, b, R0, cR1, cR2, a1, a2, a3, a4, sigInit = model_args_x[2:]
+    Fy, E0, b, R0, cR1, cR2, a1, a2, a3, a4, sigInit = float(Fy), float(E0), float(b), float(
+        R0), float(cR1), float(cR2), float(a1), float(a2), float(a3), float(a4), float(sigInit)
+    ops.uniaxialMaterial('Steel02', MatTag, Fy, E0, b, R0, cR1, cR2, a1, a2, a3, a4, sigInit)
+
 # If there ia a MinMax material
 if len(min_max_args_x) != 0:
     mat_type_minmax, matTag_minmax, OtherTag_minmax, minStrain, maxStrain = min_max_args_x
