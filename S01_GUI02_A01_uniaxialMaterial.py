@@ -9,17 +9,6 @@ COMENTARIOS:    Interfaz grafica de usuario para definicion de UniaxialMaterial.
 # %% [00] INTRODUCTION
 # GUI in Jupyter Notebook that generate graphical representation of stress-strain curve of uniaxial materials.
 
-# Note that you can run this file directly, only when it is placed in the directory of the .ipynb file.
-# The file S01_GUI02_A01_uniaxialMaterial.py is the main file to run the GUI.
-# When you run this file from the directory with the .ipynb files or from the directory C_GUI02_uniaxialMaterial, you need
-# to modify the import of the libraries in the section [01] LIBRARIES. See comments in that sections. You can only run
-# this file directly from the IDE (spyder) when this file is located in the directory with .ipynb.
-# Run this file directly allow you to see the error of the console in the IDE.
-
-# In jupyter notebook you need to use the following commands to run the file:
-# (.ipynb):                         %run S01_GUI02_A01_uniaxialMaterial.py
-# (C_GUI02_uniaxialMaterial):       %run C_GUI02_uniaxialMaterial\S01_GUI02_A01_uniaxialMaterial.py
-
 
 # %% [01] LIBRARIES
 import matplotlib.pyplot as plt
@@ -34,27 +23,9 @@ from typing import Optional
 import matplotlib.patches as patches
 import inspect
 
-# Choose only one of the following options to run the GUI.
-run_from_directory_C_GUI02_uniaxialMaterial = False
-run_from_directory_with_ipynb = True
-# Choose only one of the following options to test the uniaxialMaterial functions.
-test_uniaxialMaterial_using_truss_element = False  # Code inspired in OpenSeesUniaxialMaterialTester.py work of Professor Terje Haukaas (https://gist.github.com/terjehaukaas/6a329cb434fa470adc699b64e03be187)
-test_uniaxialMaterial_using_test_python = True     # (Default) Code inspired in test.py work of Andreas Schellenberg, Ph.D., P.E. (https://github.com/fmckenna/OpenSees/blob/master/SRC/interpreter/test.py)
-test_uniaxialMaterial_using_test_python_3 = False  # Code inspired in test.py. It doesn't work with cyclic load
-
-if run_from_directory_C_GUI02_uniaxialMaterial:
-    pass   
-if run_from_directory_with_ipynb:
-    import sys
-    sys.path.insert(0, './C_GUI02_uniaxialMaterial')
-
-if test_uniaxialMaterial_using_truss_element:
-    import S01_GUI02_A02_fileText as TxT
-if test_uniaxialMaterial_using_test_python:
-    import S01_GUI02_A02_2_fileText as TxT
-if test_uniaxialMaterial_using_test_python_3:
-    import S01_GUI02_A02_3_fileText as TxT
-    
+import sys
+sys.path.insert(0, './C_GUI02_uniaxialMaterial')
+import S01_GUI02_A02_2_fileText as TxT    
 import S01_GUI02_A03_Graphic as Grf
 import S01_GUI02_A07_UserDefFunIndications as Ind
 import S01_GUI02_A08_Video as Vid
