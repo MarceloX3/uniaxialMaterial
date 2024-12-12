@@ -33,7 +33,7 @@ cd ruta/a/tu/proyecto
 ```
 7. Crear entorno virtual conda
 ```bash
-conda create --name env_uniaxialMaterial
+conda create --name env_uniaxialMaterial --file environment_conda.txt
 ```
 8. Activar entorno
 ```bash
