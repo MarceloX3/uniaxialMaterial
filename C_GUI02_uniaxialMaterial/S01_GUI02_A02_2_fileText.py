@@ -38,6 +38,27 @@ def print_variable_info(var_name, var_value):
     var_value (any): The value of the variable.
     """
     print(f"{var_name} = {var_value}\nType of {var_name} = {type(var_value)}\n")
+    
+
+def material_definition_steel4(flag, mat_tag):
+    if flag == '-kin':
+        material_definition = f"ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-kin', b_k_{mat_tag}, R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})"
+    elif flag == '-iso':
+        material_definition = f"ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})"
+    elif flag == '-asym -kin':
+        material_definition = f"ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-kin', b_k_{mat_tag}, R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}, b_kc_{mat_tag}, R0c_{mat_tag}, r1c_{mat_tag}, r2c_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})"
+    elif flag == '-asym -iso':
+        material_definition = f"ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, b_ic_{mat_tag}, rho_ic_{mat_tag}, b_Ic_{mat_tag}, R_ic_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})"
+    elif flag == '-kin -ult':
+        material_definition = f"ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-kin', b_k_{mat_tag}, R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})"
+    elif flag == '-iso -ult':
+        material_definition = f"ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})"
+    elif flag == '-asym -kin -ult':
+        material_definition = f"ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-kin', b_k_{mat_tag}, R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}, b_kc_{mat_tag}, R0c_{mat_tag}, r1c_{mat_tag}, r2c_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, f_uc_{mat_tag}, R_uc_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})"
+    elif flag == '-asym -iso -ult':
+        material_definition = f"ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, b_ic_{mat_tag}, rho_ic_{mat_tag}, b_Ic_{mat_tag}, R_ic_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, f_uc_{mat_tag}, R_uc_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})"
+
+    return material_definition
 
 
 # %%% [02-02] READ (.TXT) FILES AS DICTIONARIES
@@ -67,6 +88,15 @@ def read_file_to_dict(file_path):
         "'-ult'": "$-ult$",
         "'-init'": "$-init$",
         "'-mem'": "$-mem$",
+        "'-asym -kin'": "$-asym -kin$",
+        "'-asym -iso'": "$-asym -iso$",
+        "'-asym -ult'": "$-asym -ult$",
+        "'-asym -init'": "$-asym -init$",
+        "'-asym -ult'": "$-asym -ult$",
+        "'-kin -ult'": "$-kin -ult$",
+        "'-iso -ult'": "$-iso -ult$",
+        "'asym -kin -ult'": "$asym -kin -ult$",
+        "'asym -iso -ult'": "$asym -iso -ult$",
     }
     for key, value in replacements.items():
         file_content = file_content.replace(key, value)
@@ -397,11 +427,9 @@ ops.uniaxialMaterial('Steel01', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, b_
         }
     
     elif model == 'Steel4':        
-        model, mat_tag, Fy, E0, b_k, R0, r1, r2, b_kc, R0c, r1c, r2c, b_i, rho_i, b_I, R_i, I_yp, b_ic, rho_ic, b_Ic, R_ic, f_u, R_u, f_uc, R_uc, sig_init, cycNum = model_args_x
-        mat_tag, Fy, E0, b_k, R0, r1, r2, b_kc, R0c, r1c, r2c, b_i, rho_i, b_I, R_i, I_yp, b_ic, rho_ic, b_Ic, R_ic, f_u, R_u, f_uc, R_uc, sig_init, cycNum = int(
-            mat_tag), float(Fy), float(E0), float(b_k), float(R0), float(r1), float(r2), float(b_kc), float(R0c), float(r1c), float(r2c), float(b_i), float(rho_i), 
-        float(b_I), float(R_i), float(I_yp), float(b_ic), float(rho_ic), float(b_Ic), float(R_ic), float(f_u), float(R_u), float(f_uc), float(R_uc), float(sig_init), 
-        int(cycNum)
+        model, mat_tag, flag, Fy, E0, b_k, R0, r1, r2, b_kc, R0c, r1c, r2c, b_i, rho_i, b_I, R_i, I_yp, b_ic, rho_ic, b_Ic, R_ic, f_u, R_u, f_uc, R_uc, sig_init, cycNum = model_args_x
+        mat_tag, flag, Fy, E0, b_k, R0, r1, r2, b_kc, R0c, r1c, r2c, b_i, rho_i, b_I, R_i, I_yp, b_ic, rho_ic, b_Ic, R_ic, f_u, R_u, f_uc, R_uc, sig_init, cycNum = int(
+            mat_tag), str(flag), float(Fy), float(E0), float(b_k), float(R0), float(r1), float(r2), float(b_kc), float(R0c), float(r1c), float(r2c), float(b_i), float(rho_i), float(b_I), float(R_i), float(I_yp), float(b_ic), float(rho_ic), float(b_Ic), float(R_ic), float(f_u), float(R_u), float(f_uc), float(R_uc), float(sig_init), int(cycNum)
         
         # If there is a MinMax material, it's necessary change the mat_tag
         if len(min_max_args_x) != 0:
@@ -414,6 +442,7 @@ ops.uniaxialMaterial('Steel01', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, b_
             "unit": unit_x,
             "material": {
                 "matTag": mat_tag,
+                "flag": flag,
                 "Fy": Fy,
                 "E0": E0,
                 "b_k": b_k,
@@ -471,11 +500,27 @@ R_uc_{mat_tag}   = {R_uc}
 sig_init_{mat_tag} = {sig_init}
 cycNum_{mat_tag} = {cycNum}
 
-params = [R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}]
-
-ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-kin', b_k_{mat_tag}, *params, b_kc_{mat_tag}, R0c_{mat_tag}, r1c_{mat_tag}, r2c_{mat_tag}, '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, b_ic_{mat_tag}, rho_ic_{mat_tag}, b_Ic_{mat_tag}, R_ic_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, f_uc_{mat_tag}, R_uc_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
-
+{material_definition_steel4(flag, mat_tag)}
 """
+
+# if flag_{mat_tag} == '-kin':
+#     ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-kin', b_k_{mat_tag}, R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+# elif flag_{mat_tag} == '-iso':
+#     ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+# elif flag_{mat_tag} == '-asym -kin':
+#     ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-kin', b_k_{mat_tag}, R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}, b_kc_{mat_tag}, R0c_{mat_tag}, r1c_{mat_tag}, r2c_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+# elif flag_{mat_tag} == '-asym -iso':
+#     ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, b_ic_{mat_tag}, rho_ic_{mat_tag}, b_Ic_{mat_tag}, R_ic_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+# elif flag_{mat_tag} == '-kin -ult':
+#     ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-kin', b_k_{mat_tag}, R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+# elif flag_{mat_tag} == '-iso -ult':
+#     ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+# elif flag_{mat_tag} == '-asym -kin -ult':
+#     ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-kin', b_k_{mat_tag}, R0_{mat_tag}, r1_{mat_tag}, r2_{mat_tag}, b_kc_{mat_tag}, R0c_{mat_tag}, r1c_{mat_tag}, r2c_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, f_uc_{mat_tag}, R_uc_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+# elif flag_{mat_tag} == '-asym -iso -ult':
+#     ops.uniaxialMaterial('Steel4', matTag_{mat_tag}, Fy_{mat_tag}, E0_{mat_tag}, '-asym', '-iso', b_i_{mat_tag}, rho_i_{mat_tag}, b_I_{mat_tag}, R_i_{mat_tag}, I_yp_{mat_tag}, b_ic_{mat_tag}, rho_ic_{mat_tag}, b_Ic_{mat_tag}, R_ic_{mat_tag}, '-ult', f_u_{mat_tag}, R_u_{mat_tag}, f_uc_{mat_tag}, R_uc_{mat_tag}, '-init', sig_init_{mat_tag}, '-mem', cycNum_{mat_tag})
+
+# """
         }
 
     elif model == 'Saatcioglu(1992)':
@@ -791,48 +836,53 @@ def data_plot(unit_x, model_args_x, load_args_x, min_max_args_x = []):
         strains_C, strains_T = strain_load(load_args_x)
         stresses_C, stresses_T = [], []
 
-        model = model_args_x[0]
-        
-        # If model is defined in openseespy.
-        if model in models_opss_py:
-            # Define test.
-            exec(open('C_GUI02_uniaxialMaterial/S01_GUI02_A04_2_testUniaxialMaterial.py', encoding='utf8').read())
-            for i in range(len(strains_C)):
+        # Calculate stresses for compression
+        for i in range(len(strains_C)):
+            model = model_args_x[0]
+            # If model is defined in openseespy.
+            if model in models_opss_py:
+                # Define test.
+                exec(open('C_GUI02_uniaxialMaterial/S01_GUI02_A04_2_testUniaxialMaterial.py', encoding='utf8').read())
+                
                 # Calculate strength
-                ops.setStrain(strains_C[i])
+                if i == 0:
+                    ops.setStrain(strains_C[i])
+                else:
+                    for k in range(i + 1):
+                        ops.setStrain(strains_C[k])
                 stresses_C.append(ops.getStress())
-        else:
-            # Calculate stresses for compression
-            for i in range(len(strains_C)):
-                # If model is defined by user.
-                if model == 'Saatcioglu(1992)':
-                    ec = strains_C[i]
-                    # Calculate strength
-                    fc = udf.Saatcioglu_1992(unit_x, abs(ec), model_args_x[2:])
-                    stresses_C.append(-fc)
-                elif model == 'Mander(1988)':
-                    ec = strains_C[i]
-                    # Calculate strength
-                    fc = udf.Mander_1988(unit_x, abs(ec), model_args_x[2:])
-                    stresses_C.append(-fc)
+            # If model is defined by user.
+            elif model == 'Saatcioglu(1992)':
+                ec = strains_C[i]
+                # Calculate strength
+                fc = udf.Saatcioglu_1992(unit_x, abs(ec), model_args_x[2:])
+                stresses_C.append(-fc)
+            elif model == 'Mander(1988)':
+                ec = strains_C[i]
+                # Calculate strength
+                fc = udf.Mander_1988(unit_x, abs(ec), model_args_x[2:])
+                stresses_C.append(-fc)
 
         # Calculate stresses for tension
-        # If model is defined in openseespy.
-        if model in models_opss_py:
-            # Define test.
-            exec(open('C_GUI02_uniaxialMaterial/S01_GUI02_A04_2_testUniaxialMaterial.py', encoding='utf8').read())
-            for i in range(len(strains_T)):
+        for i in range(len(strains_T)):
+            model = model_args_x[0]
+            # If model is defined in openseespy.
+            if model in models_opss_py:
+                # Define test.
+                exec(open('C_GUI02_uniaxialMaterial/S01_GUI02_A04_2_testUniaxialMaterial.py', encoding='utf8').read())
                 # Calculate strength
-                ops.setStrain(strains_T[i])
+                if i == 0:
+                    ops.setStrain(strains_T[i])
+                else:
+                    for k in range(i + 1):
+                        ops.setStrain(strains_T[k])
                 stresses_T.append(ops.getStress())
-        else:
-            for i in range(len(strains_T)):
-                # If model is defined by user.
-                if model == 'Belarbi(1994)':
-                    ec = strains_T[i]
-                    # Calculate strength
-                    ft = udf.Belarbi_1994(unit_x, abs(ec), model_args_x[2:])
-                    stresses_T.append(ft)
+            # If model is defined by user.
+            elif model == 'Belarbi(1994)':
+                ec = strains_T[i]
+                # Calculate strength
+                ft = udf.Belarbi_1994(unit_x, abs(ec), model_args_x[2:])
+                stresses_T.append(ft)
 
         # Convert the results to numpy arrays
         strains_C, stresses_C = np.array(strains_C), np.array(stresses_C)
@@ -1069,5 +1119,23 @@ if __name__ == '__main__':
         load_args = ['monotonic', '-', '0.0001', '-0.008', '0']
         dictionary = data_plot(unit, model_args, load_args)
         print(dictionary)
+    
+    # Example 8:
+    run_example_8 = False
+    if run_example_8:
+        url_args = 'C_GUI02_uniaxialMaterial/C_GUI02_uniaxialMaterial/monotonic/'
+        unit = 'kgf/cm**2'
+        model_args = ['Steel4', 1, '-kin', '4200.0', '2100000', '0.05', '20', '0.9', '0.15', '0.05', '20', '0.90', '0.15', '0.05', '0.15', '0.02', '20', '1.0', '0.05', '0.15', '0.02', '20', '5500.0', '20', '5500.0', '20', '0.0', '50']
+        load_args = ['monotonic', '-', '0.0001', '-0.008', '0']
+        ID_cyclic_strain = 'Default'
+        
+        file_txt(url_args, unit, model_args, load_args, ID_cyclic_strain)
+        
+    # Example 9:
+    run_example_9 = True
+    if run_example_9:
+        url_x = 'C_GUI02_uniaxialMaterial/C_GUI02_uniaxialMaterial/monotonic/MatTag_1_IdStrainLoad_Default.txt'
+        data_dict = read_file_to_dict(url_x)
+        print(data_dict)
         
         
