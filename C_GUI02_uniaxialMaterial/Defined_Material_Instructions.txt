@@ -13,7 +13,7 @@
     * [] Update the function `def assign_values_to_model_args(`
             + If the material has different flags combinations, add the dropdwn widgets in the second argument of the list. (See Steel4)
     * [] Update the code apart `MATH IN WIDGETS & DYNAMIC GRAPHICS`, add the new widgets to the lists
-            + If the material has different flags combinations, add in `%%% [04-03] OBSERVE DROPDOWNS` the functions 'update_model_widgets' and 'show_material_model'. (See Steel4)
+            + If the material has different flags combinations, add in `OBSERVE DROPDOWNS` the functions 'update_model_widgets' and 'show_material_model'. (See Steel4)
     * [] Update list `model_in_opensees`
 
 + Script: S01_GUI02_A02_2_fileText.py
