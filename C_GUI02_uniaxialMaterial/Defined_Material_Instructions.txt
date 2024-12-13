@@ -2,29 +2,29 @@
 
 [Instructions to add a new material in the GUI]
 + Script: S01_GUI02_A01_uniaxialMaterial.py
-    * [-] Update the function `def update_model_type_dropdown(`
-    * [-] Update the code apart `%%% [04-01] Text - IntText`, add the new widgets
+    * [] Update the function `def update_model_type_dropdown(`
+    * [] Update the code apart `%%% [04-01] Text - IntText`, add the new widgets
             + If the material has different flags combinations, add at the beginning of the widgets a dropdown with the flags combinations. (See Steel4)
-    * [-] Update the function `def update_model_widgets(`
+    * [] Update the function `def update_model_widgets(`
             + If the material has different flags combinations, add different if statements for each combination. (See Steel4)
     * U.D.M.[] If you are creating a User Defined Material, update the function see_instruction()
-    * [-] Update the function `def model_arg(` <====Ver para definir S01_GUI02_A02_2_fileText.py====>
+    * [] Update the function `def model_arg(` <====Ver para definir S01_GUI02_A02_2_fileText.py====>
             + If the material has different flags combinations, add the dropdwn widgets in the second argument of the list. (See Steel4)
-    * [-] Update the function `def assign_values_to_model_args(`
+    * [] Update the function `def assign_values_to_model_args(`
             + If the material has different flags combinations, add the dropdwn widgets in the second argument of the list. (See Steel4)
-    * [-] Update the code apart `MATH IN WIDGETS & DYNAMIC GRAPHICS`, add the new widgets to the lists
+    * [] Update the code apart `MATH IN WIDGETS & DYNAMIC GRAPHICS`, add the new widgets to the lists
             + If the material has different flags combinations, add in `OBSERVE DROPDOWNS` the functions 'update_model_widgets' and 'show_material_model'. (See Steel4)
-    * [-] Update list `model_in_opensees`
+    * [] Update list `model_in_opensees`
 
 + Script: S01_GUI02_A02_2_fileText.py
-    * [-] Update `def read_file_to_dict(`
-    * [-] Update `def file_txt(`
+    * [] Update `def read_file_to_dict(`
+    * [] Update `def file_txt(`
             + If the material has different flags combinations, add a function 'material_definition_MATERIAL(flag, mat_tag)'. (See material_definition_steel4(flag, mat_tag))
-    * [-] Update `def data_plot(`; see `models_opss_py` list.
+    * [] Update `def data_plot(`; see `models_opss_py` list.
     
     
 + S01_GUI02_A04_2_testUniaxialMaterial.py
-    * [-] Update if is a OpenSees material.
+    * [] Update if is a OpenSees material.
             + If the material has different flags combinations, add the different if statements for each combination. (See Steel4)
 
 
