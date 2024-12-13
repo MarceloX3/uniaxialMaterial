@@ -142,7 +142,6 @@ def update_model_type_dropdown(change=None):
     elif material_type_dropdown.value == 'User defined':
         model_type_dropdown.options = ['Saatcioglu(1992)', 'Mander(1988)', 'Belarbi(1994)']
         model_type_dropdown.value = 'Saatcioglu(1992)'
-        #load_type_dropdown.value = 'monotonic'
     update_model_widgets()
 
 
@@ -227,16 +226,82 @@ def update_model_widgets(change=None):
         update_description(E0_Steel01_input, "E0:")
     
     elif model_type == 'Steel4':
-        new_widgets = [Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
-                       b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input,
-                       b_i_Steel4_input, rho_i_Steel4_input, b_I_Steel4_input, R_i_Steel4_input,
-                       I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input, R_ic_Steel4_input,
-                       f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input,
-                       sig_init_Steel4_input, cycNum_Steel4_input]
-        update_description(Fy_Steel4_input, "Fy:")
-        update_description(E0_Steel4_input, "E0:")
-        update_description(f_u_Steel4_input, "fu:")
-        update_description(f_uc_Steel4_input, "fuc:")
+        # ['-kin', '-iso', '-asym -kin', '-asym -iso', '-asym -ult', '-kin -ult', '-iso -ult', '-asym -kin -ult', '-asym -iso -ult']
+        if flag_Steel4_dropdown.value == '-kin':
+            new_widgets = [flag_Steel4_dropdown,
+                        Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+                        sig_init_Steel4_input, cycNum_Steel4_input]
+            update_description(Fy_Steel4_input, "Fy:")
+            update_description(E0_Steel4_input, "E0:")
+        
+        elif flag_Steel4_dropdown.value == '-iso':
+            new_widgets = [flag_Steel4_dropdown,
+                        Fy_Steel4_input, E0_Steel4_input,
+                        b_i_Steel4_input, rho_i_Steel4_input, b_I_Steel4_input, R_i_Steel4_input,
+                        I_yp_Steel4_input,
+                        sig_init_Steel4_input, cycNum_Steel4_input]
+            update_description(Fy_Steel4_input, "Fy:")
+            update_description(E0_Steel4_input, "E0:")
+        
+        elif flag_Steel4_dropdown.value == '-asym -kin':
+            new_widgets = [flag_Steel4_dropdown,
+                        Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+                        b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input,
+                        sig_init_Steel4_input, cycNum_Steel4_input]
+            update_description(Fy_Steel4_input, "Fy:")
+            update_description(E0_Steel4_input, "E0:")
+        
+        elif flag_Steel4_dropdown.value == '-asym -iso':
+            new_widgets = [flag_Steel4_dropdown,
+                        Fy_Steel4_input, E0_Steel4_input,
+                        b_i_Steel4_input, rho_i_Steel4_input, b_I_Steel4_input, R_i_Steel4_input,
+                        I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input, R_ic_Steel4_input,
+                        sig_init_Steel4_input, cycNum_Steel4_input]    
+            update_description(Fy_Steel4_input, "Fy:")
+            update_description(E0_Steel4_input, "E0:")
+            
+        elif flag_Steel4_dropdown.value == '-kin -ult':
+            new_widgets = [flag_Steel4_dropdown,
+                        Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+                        f_u_Steel4_input, R_u_Steel4_input,
+                        sig_init_Steel4_input, cycNum_Steel4_input]
+            update_description(Fy_Steel4_input, "Fy:")
+            update_description(E0_Steel4_input, "E0:")
+            update_description(f_u_Steel4_input, "fu:")
+        
+        elif flag_Steel4_dropdown.value == '-iso -ult':
+            new_widgets = [flag_Steel4_dropdown,
+                        Fy_Steel4_input, E0_Steel4_input,
+                        b_i_Steel4_input, rho_i_Steel4_input, b_I_Steel4_input, R_i_Steel4_input,
+                        I_yp_Steel4_input,
+                        f_u_Steel4_input, R_u_Steel4_input,
+                        sig_init_Steel4_input, cycNum_Steel4_input]
+            update_description(Fy_Steel4_input, "Fy:")
+            update_description(E0_Steel4_input, "E0:")
+            update_description(f_u_Steel4_input, "fu:")
+            
+        elif flag_Steel4_dropdown.value == '-asym -kin -ult':
+            new_widgets = [flag_Steel4_dropdown,
+                        Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+                        b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input,
+                        f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input,
+                        sig_init_Steel4_input, cycNum_Steel4_input]
+            update_description(Fy_Steel4_input, "Fy:")
+            update_description(E0_Steel4_input, "E0:")
+            update_description(f_u_Steel4_input, "fu:")
+            update_description(f_uc_Steel4_input, "fuc:")
+        
+        elif flag_Steel4_dropdown.value == '-asym -iso -ult':
+            new_widgets = [flag_Steel4_dropdown,
+                        Fy_Steel4_input, E0_Steel4_input,
+                        b_i_Steel4_input, rho_i_Steel4_input, b_I_Steel4_input, R_i_Steel4_input,
+                        I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input, R_ic_Steel4_input,
+                        f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input,
+                        sig_init_Steel4_input, cycNum_Steel4_input]    
+            update_description(Fy_Steel4_input, "Fy:")
+            update_description(E0_Steel4_input, "E0:")
+            update_description(f_u_Steel4_input, "fu:")
+            update_description(f_uc_Steel4_input, "fuc:")
 
     elif model_type == 'Saatcioglu(1992)':
         new_widgets = [see_instruction_button, fco_input, fl_input, e01_input, rho_input, e085_input]
@@ -427,7 +492,7 @@ def create_responses_file(selected_file_in_strain_dropdown, aux_checkbox = True)
         TxT.file_txt(url_args, unit, model_args, load_args, ID_cyclic_strain, min_max_args_x = min_max_args)
         
     else:
-        model_args = model_arg()
+        model_args = model_arg()        
         # Create file
         TxT.file_txt(url_args, unit, model_args, load_args, ID_cyclic_strain)
     
@@ -613,8 +678,16 @@ def code_selected_files(files):
     code_params_output.value = ""
     for url in selected_files:
         url_x = directory + "\\" + f"{url}"
+        # DEBUG
+        programer_output.value = programer_output.value + '\nAntes de leer el archivo'
+        programer_output.value = programer_output.value + f'\nurl_x = {str(url_x)}'
+        
         # Read the .txt files
         data_dict = TxT.read_file_to_dict(url_x)
+        
+        # DEBUG
+        programer_output.value = programer_output.value + '\nLuego de leer el archivo'
+        
         # Get the value of the key 'code'.
         code_value = data_dict['code']
         # Add the code to the output
@@ -1223,7 +1296,8 @@ def model_arg():
                         a4_Steel01_input.value]
     
     elif model_type == 'Steel4':
-        model_args = [model_type_dropdown.value, MatTag_input.value, Fy_Steel4_input.value, E0_Steel4_input.value,
+        model_args = [model_type_dropdown.value, MatTag_input.value, flag_Steel4_dropdown.value,
+                      Fy_Steel4_input.value, E0_Steel4_input.value,
                       b_k_Steel4_input.value, R0_Steel4_input.value, r1_Steel4_input.value, r2_Steel4_input.value,
                       b_kc_Steel4_input.value, R0c_Steel4_input.value, r1c_Steel4_input.value, r2c_Steel4_input.value,
                       b_i_Steel4_input.value, rho_i_Steel4_input.value, b_I_Steel4_input.value, R_i_Steel4_input.value,
@@ -1448,6 +1522,7 @@ def assign_values_to_model_args(model_args, unit_model, material_type) -> None:
     global Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input
     global a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input
     global Fy_Steel01_input, E0_Steel01_input, b_Steel01_input, a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input
+    global flag_Steel4_dropdown 
     global Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input
     global b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input, b_i_Steel4_input, rho_i_Steel4_input
     global b_I_Steel4_input, R_i_Steel4_input, I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input
@@ -1530,31 +1605,32 @@ def assign_values_to_model_args(model_args, unit_model, material_type) -> None:
         a3_Steel01_input.value = model_args[7]
         a4_Steel01_input.value = model_args[8]
     elif model_args[0] == 'Steel4':
-        Fy_Steel4_input.value = model_args[2]
-        E0_Steel4_input.value = model_args[3]
-        b_k_Steel4_input.value = model_args[4]
-        R0_Steel4_input.value = model_args[5]
-        r1_Steel4_input.value = model_args[6]
-        r2_Steel4_input.value = model_args[7]
-        b_kc_Steel4_input.value = model_args[8]
-        R0c_Steel4_input.value = model_args[9]
-        r1c_Steel4_input.value = model_args[10]
-        r2c_Steel4_input.value = model_args[11]
-        b_i_Steel4_input.value = model_args[12]
-        rho_i_Steel4_input.value = model_args[13]
-        b_I_Steel4_input.value = model_args[14]
-        R_i_Steel4_input.value = model_args[15]
-        I_yp_Steel4_input.value = model_args[16]
-        b_ic_Steel4_input.value = model_args[17]
-        rho_ic_Steel4_input.value = model_args[18]
-        b_Ic_Steel4_input.value = model_args[19]
-        R_ic_Steel4_input.value = model_args[20]
-        f_u_Steel4_input.value = model_args[21]
-        R_u_Steel4_input.value = model_args[22]
-        f_uc_Steel4_input.value = model_args[23]
-        R_uc_Steel4_input.value = model_args[24]
-        sig_init_Steel4_input.value = model_args[25]
-        cycNum_Steel4_input.value = model_args[26]
+        flag_Steel4_dropdown.value = model_args[2]
+        Fy_Steel4_input.value = model_args[3]
+        E0_Steel4_input.value = model_args[4]
+        b_k_Steel4_input.value = model_args[5]
+        R0_Steel4_input.value = model_args[6]
+        r1_Steel4_input.value = model_args[7]
+        r2_Steel4_input.value = model_args[8]
+        b_kc_Steel4_input.value = model_args[9]
+        R0c_Steel4_input.value = model_args[10]
+        r1c_Steel4_input.value = model_args[11]
+        r2c_Steel4_input.value = model_args[12]
+        b_i_Steel4_input.value = model_args[13]
+        rho_i_Steel4_input.value = model_args[14]
+        b_I_Steel4_input.value = model_args[15]
+        R_i_Steel4_input.value = model_args[16]
+        I_yp_Steel4_input.value = model_args[17]
+        b_ic_Steel4_input.value = model_args[18]
+        rho_ic_Steel4_input.value = model_args[19]
+        b_Ic_Steel4_input.value = model_args[20]
+        R_ic_Steel4_input.value = model_args[21]
+        f_u_Steel4_input.value = model_args[22]
+        R_u_Steel4_input.value = model_args[23]
+        f_uc_Steel4_input.value = model_args[24]
+        R_uc_Steel4_input.value = model_args[25]
+        sig_init_Steel4_input.value = model_args[26]
+        cycNum_Steel4_input.value = model_args[27]
     elif model_args[0] == 'Saatcioglu(1992)':
         fco_input.value = model_args[2]
         fl_input.value = model_args[3]
@@ -1890,6 +1966,7 @@ def show_instructions(change=None):
 layout_var_1 = widgets.Layout(width='195px')
 layout_var_2 = widgets.Layout(width='175px')
 layout_var = widgets.Layout(width='185px')
+layout_var_reducido = widgets.Layout(width='165px')
 
 # %%% [04-00] Dropdown
 # Interactive widget to choose model type Concrete/Steel
@@ -2059,31 +2136,32 @@ a4_Steel01_input = Text(value='1.0', description="a4:", continuous_update=False,
 # Steel4
 # uniaxialMaterial('Steel4', matTag, Fy, E0, '-asym', '-kin', b_k, *params, b_kc, R_0c, r_1c, r_2c, '-iso', b_i, rho_i, b_l, R_i, l_yp, b_ic, rho_ic, b_lc, R_ic, '-ult', f_u, R_u, f_uc, R_uc, '-init', sig_init, '-mem', cycNum)
 # Inputs already defined: MatTag_input
-Fy_Steel4_input = Text(value='4200.0', description="Fy:", continuous_update=False, layout=layout_var)
-E0_Steel4_input = Text(value='2100000', description="E0:", continuous_update=False, layout=layout_var)
-b_k_Steel4_input = Text(value='0.05', description="b_k:", continuous_update=False, layout=layout_var)
-R0_Steel4_input = Text(value='20', description="R0:", continuous_update=False, layout=layout_var)
-r1_Steel4_input = Text(value='0.9', description="r1:", continuous_update=False, layout=layout_var)
-r2_Steel4_input = Text(value='0.15', description="r2:", continuous_update=False, layout=layout_var)
-b_kc_Steel4_input = Text(value='0.05', description="b_kc:", continuous_update=False, layout=layout_var)
-R0c_Steel4_input = Text(value='20', description="R0c:", continuous_update=False, layout=layout_var)
-r1c_Steel4_input = Text(value='0.90', description="r1c:", continuous_update=False, layout=layout_var)
-r2c_Steel4_input = Text(value='0.15', description="r2c:", continuous_update=False, layout=layout_var)
-b_i_Steel4_input = Text(value='0.2', description="b_i:", continuous_update=False, layout=layout_var)
-rho_i_Steel4_input = Text(value='0.2', description="rho_i:", continuous_update=False, layout=layout_var)
-b_I_Steel4_input = Text(value='0.1', description="b_I:", continuous_update=False, layout=layout_var)
-R_i_Steel4_input = Text(value='20', description="R_i:", continuous_update=False, layout=layout_var)
-I_yp_Steel4_input = Text(value='2.5', description="I_yp:", continuous_update=False, layout=layout_var)
-b_ic_Steel4_input = Text(value='0.2', description="b_ic:", continuous_update=False, layout=layout_var)
-rho_ic_Steel4_input = Text(value='0.2', description="rho_ic:", continuous_update=False, layout=layout_var)
-b_Ic_Steel4_input = Text(value='0.1', description="b_Ic:", continuous_update=False, layout=layout_var)
-R_ic_Steel4_input = Text(value='20', description="R_ic:", continuous_update=False, layout=layout_var)
-f_u_Steel4_input = Text(value='6300.0', description="f_u:", continuous_update=False, layout=layout_var)
-R_u_Steel4_input = Text(value='20', description="R_u:", continuous_update=False, layout=layout_var)
-f_uc_Steel4_input = Text(value='6300.0', description="f_uc:", continuous_update=False, layout=layout_var)
-R_uc_Steel4_input = Text(value='20', description="R_uc:", continuous_update=False, layout=layout_var)
-sig_init_Steel4_input = Text(value='0.0', description="sig_init:", continuous_update=False, layout=layout_var)
-cycNum_Steel4_input = Text(value='0', description="cycNum:", continuous_update=False, layout=layout_var)
+flag_Steel4_dropdown = Dropdown(options=['-kin', '-iso', '-asym -kin', '-asym -iso', '-kin -ult', '-iso -ult', '-asym -kin -ult', '-asym -iso -ult'], value='-kin', description='Flag:', continuous_update=False, layout=layout_var_reducido)
+Fy_Steel4_input = Text(value='4200.0', description="Fy:", continuous_update=False, layout=layout_var_reducido)
+E0_Steel4_input = Text(value='2100000', description="E0:", continuous_update=False, layout=layout_var_reducido)
+b_k_Steel4_input = Text(value='0.05', description="b_k:", continuous_update=False, layout=layout_var_reducido)
+R0_Steel4_input = Text(value='20', description="R0:", continuous_update=False, layout=layout_var_reducido)
+r1_Steel4_input = Text(value='0.9', description="r1:", continuous_update=False, layout=layout_var_reducido)
+r2_Steel4_input = Text(value='0.15', description="r2:", continuous_update=False, layout=layout_var_reducido)
+b_kc_Steel4_input = Text(value='0.05', description="b_kc:", continuous_update=False, layout=layout_var_reducido)
+R0c_Steel4_input = Text(value='20', description="R0c:", continuous_update=False, layout=layout_var_reducido)
+r1c_Steel4_input = Text(value='0.90', description="r1c:", continuous_update=False, layout=layout_var_reducido)
+r2c_Steel4_input = Text(value='0.15', description="r2c:", continuous_update=False, layout=layout_var_reducido)
+b_i_Steel4_input = Text(value='0.05', description="b_i:", continuous_update=False, layout=layout_var_reducido)
+rho_i_Steel4_input = Text(value='0.15', description="rho_i:", continuous_update=False, layout=layout_var_reducido)
+b_I_Steel4_input = Text(value='0.02', description="b_I:", continuous_update=False, layout=layout_var_reducido)
+R_i_Steel4_input = Text(value='20', description="R_i:", continuous_update=False, layout=layout_var_reducido)
+I_yp_Steel4_input = Text(value='1.0', description="I_yp:", continuous_update=False, layout=layout_var_reducido)
+b_ic_Steel4_input = Text(value='0.05', description="b_ic:", continuous_update=False, layout=layout_var_reducido)
+rho_ic_Steel4_input = Text(value='0.15', description="rho_ic:", continuous_update=False, layout=layout_var_reducido)
+b_Ic_Steel4_input = Text(value='0.02', description="b_Ic:", continuous_update=False, layout=layout_var_reducido)
+R_ic_Steel4_input = Text(value='20', description="R_ic:", continuous_update=False, layout=layout_var_reducido)
+f_u_Steel4_input = Text(value='5500.0', description="f_u:", continuous_update=False, layout=layout_var_reducido)
+R_u_Steel4_input = Text(value='20', description="R_u:", continuous_update=False, layout=layout_var_reducido)
+f_uc_Steel4_input = Text(value='5500.0', description="f_uc:", continuous_update=False, layout=layout_var_reducido)
+R_uc_Steel4_input = Text(value='20', description="R_uc:", continuous_update=False, layout=layout_var_reducido)
+sig_init_Steel4_input = Text(value='0.0', description="sig_init:", continuous_update=False, layout=layout_var_reducido)
+cycNum_Steel4_input = Text(value='50', description="cycNum:", continuous_update=False, layout=layout_var_reducido)
 
 # Extra widgets for user defined materials
 # Saatcioglu(1992)
@@ -2117,6 +2195,7 @@ graphic_unit_dropdown.observe(show_material_model, names='value')
 load_type_dropdown.observe(update_cyclic_type_dropdown, names='value')
 cyclic_type_dropdown.observe(update_defo_widgets, names='value')
 unit_dropdown.observe(update_model_widgets, names='value')
+flag_Steel4_dropdown.observe(update_model_widgets, names='value')
 
 
 # %%% [04-04] BUTTONS
@@ -2293,7 +2372,7 @@ widgets_list = [delta_e, e_max_c, e_max_t,
     Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input,
     a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input,
     Fy_Steel01_input, E0_Steel01_input, b_Steel01_input, a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input,
-    Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+    flag_Steel4_dropdown, Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
     b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input, b_i_Steel4_input, rho_i_Steel4_input,
     b_I_Steel4_input, R_i_Steel4_input, I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input,
     R_ic_Steel4_input, f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input, sig_init_Steel4_input,
@@ -2316,7 +2395,7 @@ widgets_graphic_material = [fpcc_input, epcc_input, Ec_input, rc_input, xcrn_inp
                             Fy_Steel02_input, E0_Steel02_input, b_Steel02_input, R0_Steel02_input, cR1_Steel02_input, cR2_Steel02_input,
                             a1_Steel02_input, a2_Steel02_input, a3_Steel02_input, a4_Steel02_input, sigInit_Steel02_input,
                             Fy_Steel01_input, E0_Steel01_input, b_Steel01_input, a1_Steel01_input, a2_Steel01_input, a3_Steel01_input, a4_Steel01_input,
-                            Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
+                            flag_Steel4_dropdown, Fy_Steel4_input, E0_Steel4_input, b_k_Steel4_input, R0_Steel4_input, r1_Steel4_input, r2_Steel4_input,
                             b_kc_Steel4_input, R0c_Steel4_input, r1c_Steel4_input, r2c_Steel4_input, b_i_Steel4_input, rho_i_Steel4_input,
                             b_I_Steel4_input, R_i_Steel4_input, I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input,
                             R_ic_Steel4_input, f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input, sig_init_Steel4_input,
@@ -2613,7 +2692,7 @@ display(interface_B)
 
 # %% [06] DEVELOPER
 # Developer view
-aux_view_developer = False
+aux_view_developer = True
 if aux_view_developer:
     # Layout programer
     programer_output = Textarea(value='', layout=widgets.Layout(width='1072px', height='380px'))  # 
