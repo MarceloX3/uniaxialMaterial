@@ -13,12 +13,12 @@
 
 + Script: S01_GUI02_A02_2_fileText.py
     * [-] Update `def read_file_to_dict(`
-    * [-] Update `def file_txt(`
+    * [~] Update `def file_txt(`
     * [-] Update `def data_plot(`; see `models_opss_py` list.
     
     
 + S01_GUI02_A04_2_testUniaxialMaterial.py
-    * [-] Update if is a OpenSees material.
+    * [] Update if is a OpenSees material.
 
 
 + S01_GUI02_A06_UserDefinedFunctions.py
@@ -30,3 +30,5 @@
 
     
 + Add image to the folder: C_GUI02_uniaxialMaterial; if it is a User Defined Material. +
+
+['-kin', '-iso', '-asym -kin', '-asym -iso', '-asym -ult', '-kin -ult', '-iso -ult', '-asym -kin -ult', '-asym -iso -ult']
