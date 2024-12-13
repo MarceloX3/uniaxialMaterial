@@ -233,7 +233,7 @@ def update_model_widgets(change=None):
                         sig_init_Steel4_input, cycNum_Steel4_input]
             update_description(Fy_Steel4_input, "Fy:")
             update_description(E0_Steel4_input, "E0:")
-        
+
         elif flag_Steel4_dropdown.value == '-iso':
             new_widgets = [flag_Steel4_dropdown,
                         Fy_Steel4_input, E0_Steel4_input,
@@ -2196,6 +2196,7 @@ load_type_dropdown.observe(update_cyclic_type_dropdown, names='value')
 cyclic_type_dropdown.observe(update_defo_widgets, names='value')
 unit_dropdown.observe(update_model_widgets, names='value')
 flag_Steel4_dropdown.observe(update_model_widgets, names='value')
+flag_Steel4_dropdown.observe(show_material_model, names='value')
 
 
 # %%% [04-04] BUTTONS
