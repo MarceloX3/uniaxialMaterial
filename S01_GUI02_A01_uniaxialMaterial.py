@@ -131,7 +131,7 @@ def update_unit_options(change=None):
 # Function to update the type dropdown based on material type
 def update_model_type_dropdown(change=None):
     if material_type_dropdown.value == 'Concrete':
-        model_type_dropdown.options = ['Concrete01', 'Concrete07', 'ConcreteCM']
+        model_type_dropdown.options = ['Concrete01', 'Concrete02', 'Concrete07', 'ConcreteCM']
         model_type_dropdown.value = 'ConcreteCM'
     elif material_type_dropdown.value == 'Steel':
         model_type_dropdown.options = ['Steel01', 'Steel02', 'Steel4', 'SteelMPF']
@@ -210,6 +210,14 @@ def update_model_widgets(change=None):
         new_widgets = [fpc_Concrete01_input, epsc0_Concrete01_input, fpcu_Concrete01_input, epsU_Concrete01_input]
         update_description(fpc_Concrete01_input, "fpc:")
         update_description(fpcu_Concrete01_input, "fpcu:")
+    
+    elif model_type == 'Concrete02':
+        new_widgets = [fpc_Concrete02_input, epsc0_Concrete02_input, fpcu_Concrete02_input, epsU_Concrete02_input, 
+                       lambda_Concrete02_input, ft_Concrete02_input, Ets_Concrete02_input]
+        update_description(fpc_Concrete02_input, "fpc:")
+        update_description(fpcu_Concrete02_input, "fpcu:")
+        update_description(ft_Concrete02_input, "ft:")
+        update_description(Ets_Concrete02_input, "Ets:")
         
     elif model_type == 'SteelMPF':
         new_widgets = [fyp_input, fyn_input, E0_input, bp_input, bn_input, R0_input, cR1_input, cR2_input, a1_input,
@@ -1289,6 +1297,11 @@ def model_arg():
         model_args = [model_type_dropdown.value, MatTag_input.value, fpc_Concrete01_input.value, 
                       epsc0_Concrete01_input.value, fpcu_Concrete01_input.value, epsU_Concrete01_input.value]
     
+    elif model_type == 'Concrete02':
+        model_args = [model_type_dropdown.value, MatTag_input.value, fpc_Concrete02_input.value,
+                      epsc0_Concrete02_input.value, fpcu_Concrete02_input.value, epsU_Concrete02_input.value,
+                      lambda_Concrete02_input.value, ft_Concrete02_input.value, Ets_Concrete02_input.value]
+    
     elif model_type == 'SteelMPF':
         model_args = [model_type_dropdown.value, MatTag_input.value, fyp_input.value, fyn_input.value,
                         E0_input.value, bp_input.value, bn_input.value, R0_input.value, cR1_input.value,
@@ -1539,6 +1552,8 @@ def assign_values_to_model_args(model_args, unit_model, material_type) -> None:
     global R_ic_Steel4_input, f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input, sig_init_Steel4_input
     global cycNum_Steel4_input
     global fpc_Concrete01_input, epsc0_Concrete01_input, fpcu_Concrete01_input, epsU_Concrete01_input
+    global fpc_Concrete02_input, epsc0_Concrete02_input, fpcu_Concrete02_input, epsU_Concrete02_input
+    global lambda_Concrete02_input, ft_Concrete02_input, Ets_Concrete02_input
     
     # Assign the values of the file to the widgets
     unit_dropdown.value = unit_model
@@ -1587,6 +1602,14 @@ def assign_values_to_model_args(model_args, unit_model, material_type) -> None:
         epsc0_Concrete01_input.value = model_args[3]
         fpcu_Concrete01_input.value = model_args[4]
         epsU_Concrete01_input.value = model_args[5]
+    elif model_args[0] == 'Concrete02':
+        fpc_Concrete02_input.value = model_args[2]
+        epsc0_Concrete02_input.value = model_args[3]
+        fpcu_Concrete02_input.value = model_args[4]
+        epsU_Concrete02_input.value = model_args[5]
+        lambda_Concrete02_input.value = model_args[6]
+        ft_Concrete02_input.value = model_args[7]
+        Ets_Concrete02_input.value = model_args[8]
     elif model_args[0] == 'SteelMPF':
         fyp_input.value = model_args[2]
         fyn_input.value = model_args[3]
@@ -2119,6 +2142,16 @@ fpc_Concrete01_input = Text(value='-250.0', description="fpc:", continuous_updat
 epsc0_Concrete01_input = Text(value='-0.002', description="epsc0:", continuous_update=False, layout=layout_var)
 fpcu_Concrete01_input = Text(value='-50', description="fpcu:", continuous_update=False, layout=layout_var)
 epsU_Concrete01_input = Text(value='0.007', description="epsU:", continuous_update=False, layout=layout_var)
+# Concrete02
+# uniaxialMaterial('Concrete02', matTag, fpc, epsc0, fpcu, epsU, lambda, ft, Ets)
+# Inputs already defined: MatTag_input
+fpc_Concrete02_input = Text(value='-250.0', description="fpc:", continuous_update=False, layout=layout_var)
+epsc0_Concrete02_input = Text(value='-0.002', description="epsc0:", continuous_update=False, layout=layout_var)
+fpcu_Concrete02_input = Text(value='-50', description="fpcu:", continuous_update=False, layout=layout_var)
+epsU_Concrete02_input = Text(value='0.007', description="epsU:", continuous_update=False, layout=layout_var)
+lambda_Concrete02_input = Text(value='0.6', description="lambda:", continuous_update=False, layout=layout_var)
+ft_Concrete02_input = Text(value='34.78', description="ft:", continuous_update=False, layout=layout_var)
+Ets_Concrete02_input = Text(value='75000', description="Ets:", continuous_update=False, layout=layout_var)
 # SteelMPF
 fyp_input = Text(value='4200.0', description="fyp:", continuous_update=False, layout=layout_var)
 fyn_input = Text(value='4200.0', description="fyn:", continuous_update=False, layout=layout_var)
@@ -2401,7 +2434,9 @@ widgets_list = [delta_e, e_max_c, e_max_t,
     b_I_Steel4_input, R_i_Steel4_input, I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input,
     R_ic_Steel4_input, f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input, sig_init_Steel4_input,
     cycNum_Steel4_input,
-    fpc_Concrete01_input, epsc0_Concrete01_input, fpcu_Concrete01_input, epsU_Concrete01_input]
+    fpc_Concrete01_input, epsc0_Concrete01_input, fpcu_Concrete01_input, epsU_Concrete01_input,
+    fpc_Concrete02_input, epsc0_Concrete02_input, fpcu_Concrete02_input, epsU_Concrete02_input, 
+    lambda_Concrete02_input, ft_Concrete02_input, Ets_Concrete02_input]
 
 widgets_graphic_strain = [delta_e, e_max_c, 
                    e_max_t, e_max_c_1, e_max_c_2, e_max_c_3, e_max_c_4, e_max_c_5, 
@@ -2425,7 +2460,9 @@ widgets_graphic_material = [fpcc_input, epcc_input, Ec_input, rc_input, xcrn_inp
                             b_I_Steel4_input, R_i_Steel4_input, I_yp_Steel4_input, b_ic_Steel4_input, rho_ic_Steel4_input, b_Ic_Steel4_input,
                             R_ic_Steel4_input, f_u_Steel4_input, R_u_Steel4_input, f_uc_Steel4_input, R_uc_Steel4_input, sig_init_Steel4_input,
                             cycNum_Steel4_input,
-                            fpc_Concrete01_input, epsc0_Concrete01_input, fpcu_Concrete01_input, epsU_Concrete01_input]
+                            fpc_Concrete01_input, epsc0_Concrete01_input, fpcu_Concrete01_input, epsU_Concrete01_input,
+                            fpc_Concrete02_input, epsc0_Concrete02_input, fpcu_Concrete02_input, epsU_Concrete02_input, 
+                            lambda_Concrete02_input, ft_Concrete02_input, Ets_Concrete02_input]
 
 widgets_regularization = [Gfc_cc_input, L_reg_input]
 
@@ -2615,7 +2652,7 @@ def update_otherTag_minmax_dropdown(change=None):
     selected_files = [cb.description for cb in files_checkboxes_3]
     
     # Only use the files that the material is defined using opensees functions
-    model_in_opensees = ['ConcreteCM', 'Concrete07', 'Concrete01', 'SteelMPF', 'Steel02', 'Steel01', 'Steel4']
+    model_in_opensees = ['ConcreteCM', 'Concrete07', 'Concrete01', 'Concrete02', 'SteelMPF', 'Steel02', 'Steel01', 'Steel4']
     # the files are called: 'MatTag_2_ConcreteCM.txt', 'MatTag_3_Concrete07.txt', etc
     selected_files = [file for file in selected_files if file.split('_')[2].split('.')[0] in model_in_opensees]
     
