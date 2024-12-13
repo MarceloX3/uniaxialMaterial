@@ -44,6 +44,12 @@ elif model == 'Concrete01':
     fpc, epsc0, fpcu, epsU = float(fpc), float(epsc0), float(fpcu), float(epsU)
     ops.uniaxialMaterial('Concrete01', MatTag, fpc, epsc0, fpcu, epsU)
 
+elif model == 'Concrete02':
+    fpc, epsc0, fpcu, epsU, lamb, ft, Ets = model_args_x[2:]
+    fpc, epsc0, fpcu, epsU, lamb, ft, Ets = float(fpc), float(epsc0), float(
+        fpcu), float(epsU), float(lamb), float(ft), float(Ets)
+    ops.uniaxialMaterial('Concrete02', MatTag, fpc, epsc0, fpcu, epsU, lamb, ft, Ets)
+
 elif model == 'SteelMPF':
     fyp, fyn, E0, bp, bn, R0, cR1, cR2, a1, a2, a3, a4 = model_args_x[2:]
     fyp, fyn, E0, bp, bn, R0, cR1, cR2, a1, a2, a3, a4 = float(fyp), float(fyn), float(E0), float(
