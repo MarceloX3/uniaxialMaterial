@@ -97,6 +97,7 @@ def read_file_to_dict(file_path):
         "'-iso -ult'": "$-iso -ult$",
         "'asym -kin -ult'": "$asym -kin -ult$",
         "'asym -iso -ult'": "$asym -iso -ult$",
+        "'Concrete01'": "$Concrete01$",
     }
     for key, value in replacements.items():
         file_content = file_content.replace(key, value)
@@ -280,7 +281,41 @@ r_{mat_tag}      = {r}
 ops.uniaxialMaterial('Concrete07', matTag_{mat_tag}, fc_{mat_tag}, epsc_{mat_tag}, Ec_{mat_tag}, ft_{mat_tag}, et_{mat_tag}, xp_{mat_tag}, xn_{mat_tag}, r_{mat_tag})
 """
         }
+    
+    elif model == 'Concrete01':
+        model, mat_tag, fpc, epsc0, fpcu, epscu = model_args_x
+        mat_tag, fpc, epsc0, fpcu, epscu = int(mat_tag), float(fpc), float(epsc0), float(fpcu), float(epscu)
 
+        # If there is a MinMax material, it's necessary change the mat_tag
+        if len(min_max_args_x) != 0:
+            OtherTag_minmax = min_max_args_x[2]
+            OtherTag_minmax = int(OtherTag_minmax)
+            mat_tag = OtherTag_minmax
+        
+        material = {
+            "model": "-Concrete01",
+            "unit": unit_x,
+            "material": {
+                "matTag": mat_tag,
+                "fpc": fpc,
+                "epsc0": epsc0,
+                "fpcu": fpcu,
+                "epscu": epscu
+            },
+            "code": f"""# import openseespy.opensees as ops
+
+# {unit_x} =  #  complete this field.
+
+matTag_{mat_tag} = {mat_tag}
+fpc_{mat_tag}    = {fpc} #  * {unit_x}
+epsc0_{mat_tag}  = {epsc0}
+fpcu_{mat_tag}   = {fpcu} #  * {unit_x}
+epscu_{mat_tag}  = {epscu}
+
+ops.uniaxialMaterial('Concrete01', matTag_{mat_tag}, fpc_{mat_tag}, epsc0_{mat_tag}, fpcu_{mat_tag}, epscu_{mat_tag})
+"""
+        }
+        
     elif model == 'SteelMPF':
         model, mat_tag, fyp, fyn, E0, bp, bn, R0, cR1, cR2, a1, a2, a3, a4 = model_args_x
         mat_tag, fyp, fyn, E0, bp, bn, R0, cR1, cR2, a1, a2, a3, a4 = int(mat_tag), float(fyp), float(fyn), float(
@@ -828,7 +863,7 @@ def data_plot(unit_x, model_args_x, load_args_x, min_max_args_x = []):
     # Extract the arguments
     load_type, cyclic_type = load_args_x[:2]
     # Identify opensees models already implemented in the script
-    models_opss_py = ['ConcreteCM', 'Concrete07', 'SteelMPF', 'Steel02', 'Steel01', 'Steel4']
+    models_opss_py = ['ConcreteCM', 'Concrete07', 'Concrete01', 'SteelMPF', 'Steel02', 'Steel01', 'Steel4']
 
     if load_type == 'monotonic':
         
